@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayı Yakalama</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="generateNumber()">
+<div id="top-section">
+  <div id="number-display">000000000</div>
+  <div id="progress-bar">
+    <div id="progress"></div>
+  </div>
+</div>
+<div id="bottom-section">
+  <div class="button-group">
+    <div class="number-button" onclick="checkNumber(7)">7</div>
+    <div class="number-button" onclick="checkNumber(8)">8</div>
+    <div class="number-button" onclick="checkNumber(9)">9</div>
+  </div>
+  <div class="button-group">
+    <div class="number-button" onclick="checkNumber(4)">4</div>
+    <div class="number-button" onclick="checkNumber(5)">5</div>
+    <div class="number-button" onclick="checkNumber(6)">6</div>
+  </div>
+  <div class="button-group">
+    <div class="number-button" onclick="checkNumber(1)">1</div>
+    <div class="number-button" onclick="checkNumber(2)">2</div>
+    <div class="number-button" onclick="checkNumber(3)">3</div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
