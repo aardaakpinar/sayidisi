@@ -43,7 +43,7 @@ function checkNumber(number) {
     if (displayValue.includes(numberToCheck)) {
         showPopup(numberToCheck + " rakamı sayını içinde var. Puan'ın:" + score, 5000)
         width = 0;
-        score = 0;
+        score = score - 1;
         scrbrd.innerText = score;
     } else {
         score++;
