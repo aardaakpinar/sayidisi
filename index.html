@@ -17,25 +17,23 @@
   <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="">
+<body>
 
 <!-- Popup -->
 <div class="popup" id="myPopup">
   <div class="popup-content">
     <p>9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
-    <button onclick="startGame()">Başla</button>
+    <button onclick="startGame(0)">kolay</button>
+    <button onclick="startGame(1)">orta</button>
+    <button onclick="startGame(2)">zor</button>
   </div>
 </div>
-
-<!-- Navbar -->
-<div class="navbar">
-    <span id="score">Puan</span> |
-    <span>Zorluk</span> |
-    <span>Profil</span>
-</div>
-
 <div id="top-section">
   <div id="number-display">000000000</div>
+  <div id="info-bar">
+    <span id="score" class="left">Puan</span>
+    <span id="level" class="right">Zorluk</span>
+  </div>
   <div id="progress-bar">
     <div id="progress"></div>
   </div>
