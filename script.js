@@ -32,8 +32,9 @@ function startGame(level) {
 }
 
 // Bitirme fonksiyonu
-function endGame() {
+function endGame(numberToCheck) {
     clearInterval(intervalId);
+    document.getElementById("text").innerHTML =  numberToCheck + " Sayısı zaten vardı. PUAN'IN: " + score;
     document.getElementById("myPopup").style.display = "block";
     width = 0;
     score = 0;
@@ -50,8 +51,8 @@ function pauseGame() {
 function move() {
     if (width >= 100) {
         width = 0;
-        score = 0;
-        scrbrd.innerText = 0;
+        score += -1;
+        scrbrd.innerText = score;
         generateNumber(numberLenght);
     } else {
         width++;
@@ -63,7 +64,7 @@ function checkNumber(number) {
     const numberToCheck = number.toString();
     const displayValue = document.getElementById("number-display").innerText;
     if (displayValue.includes(numberToCheck)) {
-        endGame()
+        endGame(numberToCheck)
     } else {
         score++;
         scrbrd.innerText = score;

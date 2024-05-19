@@ -22,7 +22,7 @@
 <!-- Popup -->
 <div class="popup" id="myPopup">
   <div class="popup-content">
-    <p>9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
+    <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
     <button onclick="startGame(0)">kolay</button>
     <button onclick="startGame(1)">orta</button>
     <button onclick="startGame(2)">zor</button>
@@ -40,19 +40,19 @@
 </div>
 <div id="bottom-section">
   <div class="button-group">
-    <div class="number-button" onclick="checkNumber(7)">7</div>
-    <div class="number-button" onclick="checkNumber(8)">8</div>
-    <div class="number-button" onclick="checkNumber(9)">9</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">7</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">8</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">9</div>
   </div>
   <div class="button-group">
-    <div class="number-button" onclick="checkNumber(4)">4</div>
-    <div class="number-button" onclick="checkNumber(5)">5</div>
-    <div class="number-button" onclick="checkNumber(6)">6</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">4</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">5</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">6</div>
   </div>
   <div class="button-group">
-    <div class="number-button" onclick="checkNumber(1)">1</div>
-    <div class="number-button" onclick="checkNumber(2)">2</div>
-    <div class="number-button" onclick="checkNumber(3)">3</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">1</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">2</div>
+    <div class="number-button" onclick="checkNumber(this.innerText)">3</div>
   </div>
 </div>
 <script src="script.js"></script>
