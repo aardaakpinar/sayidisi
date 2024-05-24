@@ -1,60 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>SayıDışı</title>
-  <!-- Meta -->
-  <meta name="viewport" content="width=device-width,  initial-scale=1, maximum-scale=1 user-scalable=0" />
-  <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-  <meta name="copyright" content="NAR © 2021 Tüm hakları saklı" />
-  <meta name="theme-color" content="#23b5b5" />
-  <meta property="og:title" content="SayıDışı" />
-  <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?"/>
-  <meta property="og:image" content="https://devnar.github.io/logos/sayidisi.png"/>
-  <!-- /robots -->
-  <meta name="robots" content="index,follow" />
-  <meta name="revisit-after" content="1 days" />
-  <!-- Link -->
-  <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?">
+  <meta name="copyright" content="NAR © 2021 Tüm hakları saklı">
+  <meta name="theme-color" content="#23b5b5">
+  <meta property="og:title" content="SayıDışı">
+  <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?">
+  <meta property="og:image" content="https://devnar.github.io/logos/sayidisi.png">
+  <meta name="robots" content="index,follow">
+  <meta name="revisit-after" content="1 days">
+  <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png">
   <link rel="stylesheet" href="style.css">
+  <title>SayıDışı</title>
 </head>
 <body>
+  <!-- Popup -->
+  <div class="popup" id="myPopup">
+    <div class="popup-content">
+      <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
+      <div class="scrollable-list">
+        <label><input type="checkbox" name="option" id="reduceTime5" value="5"> Süreyi Azalt (-5)</label>
+        <label><input type="checkbox" name="option" id="reduceTime15" value="15"> Süreyi Azalt (-15)</label>
+        <label><input type="checkbox" name="option" id="reduceTime25" value="25"> Süreyi Azalt (-25)</label>
+        <label><input type="checkbox" name="option" id="shuffleNumpad" value="shuffle"> Klavye Değiştir</label>
+      </div>
+      <div class="button-group">
+        <button onclick="startGame(0)">Başla</button>
+        <button onclick="showStats()">İstatistik</button>
+      </div>
+    </div>
+  </div>
 
-<!-- Popup -->
-<div class="popup" id="myPopup">
-  <div class="popup-content">
-    <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
-    <button onclick="startGame(0)">kolay</button>
-    <button onclick="startGame(1)">orta</button>
-    <button onclick="startGame(2)">zor</button>
+  <!-- Main Content -->
+  <div id="top-section">
+    <div id="number-display">000000000</div>
+    <div id="info-bar">
+      <span id="score" class="left">Puan: 0</span>
+      <span id="level" class="right">Zorluk</span>
+    </div>
+    <div id="progress-bar">
+      <div id="progress"></div>
+    </div>
   </div>
-</div>
-<div id="top-section">
-  <div id="number-display">000000000</div>
-  <div id="info-bar">
-    <span id="score" class="left">Puan</span>
-    <span id="level" class="right">Zorluk</span>
+  <div id="bottom-section">
+    <div class="button-group">
+      <div class="number-button" onclick="checkNumber(this.innerText)">7</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">8</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">9</div>
+    </div>
+    <div class="button-group">
+      <div class="number-button" onclick="checkNumber(this.innerText)">4</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">5</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">6</div>
+    </div>
+    <div class="button-group">
+      <div class="number-button" onclick="checkNumber(this.innerText)">1</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">2</div>
+      <div class="number-button" onclick="checkNumber(this.innerText)">3</div>
+    </div>
   </div>
-  <div id="progress-bar">
-    <div id="progress"></div>
-  </div>
-</div>
-<div id="bottom-section">
-  <div class="button-group">
-    <div class="number-button" onclick="checkNumber(this.innerText)">7</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">8</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">9</div>
-  </div>
-  <div class="button-group">
-    <div class="number-button" onclick="checkNumber(this.innerText)">4</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">5</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">6</div>
-  </div>
-  <div class="button-group">
-    <div class="number-button" onclick="checkNumber(this.innerText)">1</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">2</div>
-    <div class="number-button" onclick="checkNumber(this.innerText)">3</div>
-  </div>
-</div>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
