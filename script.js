@@ -12,19 +12,14 @@ function startGame() {
     let baseInterval = 25;
     let difficultyScores = 0;
     let levelName = 0;
-    const reduceTime5 = document.getElementById("reduceTime5").checked;
     const reduceTime10 = document.getElementById("reduceTime10").checked;
     const reduceTime15 = document.getElementById("reduceTime15").checked;
     const shuffleNbrpad = document.getElementById("shuffleNumpad").checked;
     if (shuffleNbrpad == true) {shuffleNumpad = true} else {shuffleNumpad = false}
     
-    if (shuffleNumpad) {
+    if (shuffleNbrpad) {
         shuffleNumpadKeys();
-        difficultyScores += 5;
-    }
-    if (reduceTime5) {
-        baseInterval -= 5;
-        difficultyScores += 1;
+        difficultyScores += 6;
     }
     if (reduceTime10) {
         baseInterval -= 10;
@@ -38,7 +33,7 @@ function startGame() {
     const difficultyNames = ["Kolay", "Orta", "Zor"];
     if (difficultyScores < 4) {
         levelName = 0;
-    } else if (difficultyScores > 8) {
+    } else if (difficultyScores >= 8) {
         levelName = 2;
     } else {
         levelName = 1;
@@ -49,6 +44,22 @@ function startGame() {
 
     generateNumber(numberLength);
     intervalId = setInterval(move, baseInterval);
+}
+
+function inputDisabled(nbr) {
+    if (nbr == 10) {
+        if (document.getElementById("reduceTime15").disabled != true) {
+            document.getElementById("reduceTime15").disabled = true;
+        } else {
+            document.getElementById("reduceTime15").disabled = false;
+        }
+    } else {
+        if (document.getElementById("reduceTime10").disabled != true) {
+            document.getElementById("reduceTime10").disabled = true;
+        } else {
+            document.getElementById("reduceTime10").disabled = false;
+        }
+    }
 }
 
 function endGame(numberToCheck) {
