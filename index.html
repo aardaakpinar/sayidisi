@@ -21,9 +21,8 @@
     <div class="popup-content">
       <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
       <div class="scrollable-list">
-        <label><input type="checkbox" name="option" id="reduceTime5" value="5"> Süreyi Azalt (-5)</label>
-        <label><input type="checkbox" name="option" id="reduceTime10" value="10"> Süreyi Azalt (-15)</label>
-        <label><input type="checkbox" name="option" id="reduceTime15" value="15"> Süreyi Azalt (-25)</label>
+        <label><input type="checkbox" name="option" id="reduceTime10" value="10" oninput="inputDisabled(10)"> Süreyi Azalt (-10)</label>
+        <label><input type="checkbox" name="option" id="reduceTime15" value="15" oninput="inputDisabled(15)" > Süreyi Azalt (-15)</label>
         <label><input type="checkbox" name="option" id="shuffleNumpad" value="shuffle"> Klavye Değiştir</label>
       </div>
       <div class="button-group">
