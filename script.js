@@ -4,6 +4,7 @@ const levelBox = document.getElementById("level");
 
 let width = 0;
 let numberLength = 9;
+let RestrictedDigits;
 let score = 0;
 let intervalId;
 let shuffleNumpad = false;
@@ -26,34 +27,50 @@ function startGame() {
     shuffleNumpad = document.getElementById("shuffleNumpad").checked;
     if (shuffleNumpad) {
         shuffleNumpadKeys();
-        difficultyScores += 6;
+        difficultyScores += 5;
     }
-
     if (document.getElementById("reduceTime10").checked) {
         baseInterval -= 10;
-        difficultyScores += 3;
+        difficultyScores += 1;
     }
     if (document.getElementById("reduceTime15").checked) {
         baseInterval -= 15;
-        difficultyScores += 5;
+        difficultyScores += 2;
+    }
+    if (document.getElementById("3Digits").checked) {
+        RestrictedDigits = 3;
+        difficultyScores += 2;
+    }
+    if (document.getElementById("2Digits").checked) {
+        RestrictedDigits = 2;
+        difficultyScores += 3;
+    }
+    if (document.getElementById("1Digits").checked) {
+        RestrictedDigits = 1;
+        difficultyScores += 4;
     }
 
     const difficultyNames = ["Kolay", "Orta", "Zor"];
-    let levelName = difficultyScores < 4 ? 0 : difficultyScores >= 8 ? 2 : 1;
+    let levelName = difficultyScores < 4 ? 0 : difficultyScores >= 10 ? 2 : 1;
     levelBox.innerText = difficultyNames[levelName];
 
     document.getElementById("myPopup").style.display = "none";
     scrbrd.innerText = `Puan: 0`;
 
-    generateNumber(numberLength);
+    generateNumber(numberLength, RestrictedDigits);
     intervalId = setInterval(moveProgressBar, baseInterval);
 }
 
 
-function inputDisabled(nbr) {
-    const elementId = nbr == 10 ? "reduceTime15" : "reduceTime10";
-    const element = document.getElementById(elementId);
-    element.disabled = !element.disabled;
+function inputDisabled(id, relatedIds = []) {
+    const element = document.getElementById(id);
+
+    relatedIds.forEach(relatedId => {
+        const relatedElement = document.getElementById(relatedId);
+        if (relatedElement) {
+            relatedElement.disabled = element.checked;
+        }
+    });
 }
 
 
@@ -83,7 +100,7 @@ function moveProgressBar() {
         width = 0;
         score--;
         scrbrd.innerText = `Puan: ${score}`;
-        generateNumber(numberLength);
+        generateNumber(numberLength, RestrictedDigits);
         updateScoreDisplay("red");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
@@ -102,7 +119,7 @@ function checkNumber(number) {
         score++;
         scrbrd.innerText = `Puan: ${score}`;
         width = 0;
-        generateNumber(numberLength);
+        generateNumber(numberLength, RestrictedDigits);
         updateScoreDisplay("green");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
@@ -113,13 +130,30 @@ function checkNumber(number) {
 }
 
 
-function generateNumber(length) {
-    let number = "";
-    for (let i = 0; i < length; i++) {
+function generateNumber(length, excludedCount) {
+    let result = '';
+
+    let excludedDigits = new Set();
+    while (excludedDigits.size < excludedCount) {
         const digit = Math.floor(Math.random() * 9) + 1;
-        number += digit;
+        excludedDigits.add(digit);
     }
-    document.getElementById("number-display").innerText = number;
+
+    console.log("Seçilen rakamlar:", Array.from(excludedDigits)); // Seçilen rakamları konsola yazdır
+
+    for (let i = 1; i <= 9; i++) {
+        if (!excludedDigits.has(i)) {
+            result += i.toString();
+        }
+    }
+
+    while (result.length < length) {
+        const randomIndex = Math.floor(Math.random() * result.length);
+        const randomDigit = Math.floor(Math.random() * 9) + 1;
+        result = result.slice(0, randomIndex) + randomDigit.toString() + result.slice(randomIndex);
+    }
+
+    document.getElementById("number-display").innerText = result;
 }
 
 
