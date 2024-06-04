@@ -1,86 +1,90 @@
 const progressBar = document.getElementById("progress");
 const scrbrd = document.getElementById("score");
 const levelBox = document.getElementById("level");
+
 let width = 0;
 let numberLength = 9;
 let score = 0;
 let intervalId;
 let shuffleNumpad = false;
 
-// Başlatma fonksiyonu
+let gamesPlayed = parseInt(localStorage.getItem('gamesPlayed')) || 0;
+let highScore = parseInt(localStorage.getItem('highScore')) || 0;
+
+
+function updateStatistics() {
+    document.getElementById('gamesPlayed').textContent = gamesPlayed;
+    document.getElementById('highScore').textContent = highScore;
+    document.getElementById('currentScore').textContent = score;
+}
+
+
 function startGame() {
     let baseInterval = 25;
     let difficultyScores = 0;
-    let levelName = 0;
-    const reduceTime10 = document.getElementById("reduceTime10").checked;
-    const reduceTime15 = document.getElementById("reduceTime15").checked;
-    const shuffleNbrpad = document.getElementById("shuffleNumpad").checked;
-    if (shuffleNbrpad == true) {shuffleNumpad = true} else {shuffleNumpad = false}
-    
-    if (shuffleNbrpad) {
+
+    shuffleNumpad = document.getElementById("shuffleNumpad").checked;
+    if (shuffleNumpad) {
         shuffleNumpadKeys();
         difficultyScores += 6;
     }
-    if (reduceTime10) {
+
+    if (document.getElementById("reduceTime10").checked) {
         baseInterval -= 10;
         difficultyScores += 3;
     }
-    if (reduceTime15) {
+    if (document.getElementById("reduceTime15").checked) {
         baseInterval -= 15;
         difficultyScores += 5;
     }
 
     const difficultyNames = ["Kolay", "Orta", "Zor"];
-    if (difficultyScores < 4) {
-        levelName = 0;
-    } else if (difficultyScores >= 8) {
-        levelName = 2;
-    } else {
-        levelName = 1;
-    }
+    let levelName = difficultyScores < 4 ? 0 : difficultyScores >= 8 ? 2 : 1;
     levelBox.innerText = difficultyNames[levelName];
+
     document.getElementById("myPopup").style.display = "none";
     scrbrd.innerText = `Puan: 0`;
 
     generateNumber(numberLength);
-    intervalId = setInterval(move, baseInterval);
+    intervalId = setInterval(moveProgressBar, baseInterval);
 }
+
 
 function inputDisabled(nbr) {
-    if (nbr == 10) {
-        if (document.getElementById("reduceTime15").disabled != true) {
-            document.getElementById("reduceTime15").disabled = true;
-        } else {
-            document.getElementById("reduceTime15").disabled = false;
-        }
-    } else {
-        if (document.getElementById("reduceTime10").disabled != true) {
-            document.getElementById("reduceTime10").disabled = true;
-        } else {
-            document.getElementById("reduceTime10").disabled = false;
-        }
-    }
+    const elementId = nbr == 10 ? "reduceTime15" : "reduceTime10";
+    const element = document.getElementById(elementId);
+    element.disabled = !element.disabled;
 }
 
-function endGame(numberToCheck) {
+
+function endGame() {
     clearInterval(intervalId);
     document.getElementById("myPopup").style.display = "block";
+    gamesPlayed++;
+    if (score > highScore) {
+        highScore = score;
+    }
+    localStorage.setItem('gamesPlayed', gamesPlayed);
+    localStorage.setItem('highScore', highScore);
+    updateStatistics();
     width = 0;
     score = 0;
     scrbrd.innerText = `Puan: ${score}`;
 }
 
+
 function pauseGame() {
     clearInterval(intervalId);
 }
 
-function move() {
+
+function moveProgressBar() {
     if (width >= 100) {
         width = 0;
-        score -= 1;
+        score--;
         scrbrd.innerText = `Puan: ${score}`;
         generateNumber(numberLength);
-        increaseScore("red");
+        updateScoreDisplay("red");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
         }
@@ -90,6 +94,7 @@ function move() {
     }
 }
 
+
 function checkNumber(number) {
     const numberToCheck = number.toString();
     const displayValue = document.getElementById("number-display").innerText;
@@ -98,14 +103,15 @@ function checkNumber(number) {
         scrbrd.innerText = `Puan: ${score}`;
         width = 0;
         generateNumber(numberLength);
-        increaseScore("green");
+        updateScoreDisplay("green");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
         }
     } else {
-        endGame(numberToCheck);
+        endGame();
     }
 }
+
 
 function generateNumber(length) {
     let number = "";
@@ -116,26 +122,25 @@ function generateNumber(length) {
     document.getElementById("number-display").innerText = number;
 }
 
+
 function shuffleNumpadKeys() {
     const numpadButtons = Array.from(document.getElementsByClassName("number-button"));
-    const numbers = numpadButtons.map((button) => button.innerText);
-    const shuffledNumbers = numbers.sort(() => Math.random() - 0.5);
+    const shuffledNumbers = numpadButtons.map(button => button.innerText).sort(() => Math.random() - 0.5);
 
     numpadButtons.forEach((button, index) => {
         button.innerText = shuffledNumbers[index];
     });
 }
 
-function increaseScore(color) {
-  const scoreIncreaseElement = document.getElementById(color + "-increase");
-  scoreIncreaseElement.style.opacity = "1";
-  scoreIncreaseElement.style.transform = "translateY(0)";
-  setTimeout(() => {
-      scoreIncreaseElement.style.opacity = "0";
-      scoreIncreaseElement.style.transform = "translateY(-40px)";
-  }, 1000);
+
+function updateScoreDisplay(color) {
+    const scoreElement = document.getElementById(`${color}-increase`);
+    scoreElement.style.opacity = "1";
+    scoreElement.style.transform = "translateY(0)";
+    setTimeout(() => {
+        scoreElement.style.opacity = "0";
+        scoreElement.style.transform = "translateY(-40px)";
+    }, 1000);
 }
 
-// yakında
-function showStats() {
-}
+document.addEventListener('DOMContentLoaded', updateStatistics);

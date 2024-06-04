@@ -192,3 +192,37 @@ body {
     opacity: 0;
   }
 }
+
+/* Statistic */
+.statistics-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-item h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.highlight {
+  background-color: #ffd700;
+  color: white;
+  font-weight: bold;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+}

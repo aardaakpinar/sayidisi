@@ -19,6 +19,20 @@
   <!-- Popup -->
   <div class="popup" id="myPopup">
     <div class="popup-content">
+      <div class="statistics-container" id="stats">
+        <div class="stat-item">
+            <p>Toplam<br> Oynama</p>
+            <h2 id="gamesPlayed">0</h2>
+        </div>
+        <div class="stat-item highlight">
+            <p>En Yüksek<br> Puan</p>
+            <h2 id="highScore">0</h2>
+        </div>
+        <div class="stat-item">
+            <p>Güncel<br> Puan</p>
+            <h2 id="currentScore">0</h2>
+        </div>
+    </div>
       <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
       <div class="scrollable-list">
         <label><input type="checkbox" name="option" id="reduceTime10" value="10" oninput="inputDisabled(10)"> Süreyi Azalt (-10)</label>
@@ -27,7 +41,6 @@
       </div>
       <div class="button-group">
         <button onclick="startGame(0)">Başla</button>
-        <button onclick="showStats()">İstatistik</button>
       </div>
     </div>
   </div>
