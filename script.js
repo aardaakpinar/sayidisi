@@ -4,7 +4,7 @@ const levelBox = document.getElementById("level");
 
 let width = 0;
 let numberLength = 9;
-let RestrictedDigits;
+let RestrictedDigits = 4;
 let score = 0;
 let intervalId;
 let shuffleNumpad = false;
