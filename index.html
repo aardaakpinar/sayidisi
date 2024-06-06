@@ -35,16 +35,17 @@
                 </div>
                 <div class="content-container">
                     <div>
-                        <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.</p>
+                        <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.<br><br> oyunu zorlaştırmak için yandan özellikler seçebilirsin -></p>
                         <button onclick="startGame(0)">Başla</button>
                     </div>
                     <div class="scrollable-list">
-                      <label><input type="checkbox" name="option" id="reduceTime10" value="10" oninput="inputDisabled('reduceTime10', ['reduceTime15'])" /> Süreyi Azalt (-10)</label>
-                      <label><input type="checkbox" name="option" id="reduceTime15" value="15" oninput="inputDisabled('reduceTime15', ['reduceTime10'])" /> Süreyi Azalt (-15)</label>
-                      <label><input type="checkbox" name="option" id="3Digits" value="3" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="2Digits" value="2" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="1Digits" value="1" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="shuffleNumpad" value="shuffle" /> Klavye Değiştir</label>
+                      <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
+                      <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
+                      <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
+                      <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
                     </div>
                 </div>
             </div>
@@ -65,19 +66,19 @@
         </div>
         <div id="bottom-section">
             <div class="button-group">
-                <div class="number-button" onclick="checkNumber(this.innerText)">7</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">8</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">9</div>
+                <div class="number-button" id="7" onclick="checkNumber(this.innerText)">7</div>
+                <div class="number-button" id="8" onclick="checkNumber(this.innerText)">8</div>
+                <div class="number-button" id="9" onclick="checkNumber(this.innerText)">9</div>
             </div>
             <div class="button-group">
-                <div class="number-button" onclick="checkNumber(this.innerText)">4</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">5</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">6</div>
+                <div class="number-button" id="4" onclick="checkNumber(this.innerText)">4</div>
+                <div class="number-button" id="5" onclick="checkNumber(this.innerText)">5</div>
+                <div class="number-button" id="6" onclick="checkNumber(this.innerText)">6</div>
             </div>
             <div class="button-group">
-                <div class="number-button" onclick="checkNumber(this.innerText)">1</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">2</div>
-                <div class="number-button" onclick="checkNumber(this.innerText)">3</div>
+                <div class="number-button" id="1" onclick="checkNumber(this.innerText)">1</div>
+                <div class="number-button" id="2" onclick="checkNumber(this.innerText)">2</div>
+                <div class="number-button" id="3" onclick="checkNumber(this.innerText)">3</div>
             </div>
         </div>
         <script src="script.js"></script>

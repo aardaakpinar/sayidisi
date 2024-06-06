@@ -3,7 +3,6 @@ const scrbrd = document.getElementById("score");
 const levelBox = document.getElementById("level");
 
 let width = 0;
-let numberLength = 9;
 let RestrictedDigits = 4;
 let score = 0;
 let intervalId;
@@ -22,7 +21,7 @@ function updateStatistics() {
 
 function startGame() {
     let baseInterval = 25;
-    let difficultyScores = 0;
+    let difficultyScores = 1;
 
     shuffleNumpad = document.getElementById("shuffleNumpad").checked;
     if (shuffleNumpad) {
@@ -33,9 +32,13 @@ function startGame() {
         baseInterval -= 10;
         difficultyScores += 1;
     }
+    if (document.getElementById("reduceTime13").checked) {
+        baseInterval -= 13;
+        difficultyScores += 4;
+    }
     if (document.getElementById("reduceTime15").checked) {
         baseInterval -= 15;
-        difficultyScores += 2;
+        difficultyScores += 5;
     }
     if (document.getElementById("3Digits").checked) {
         RestrictedDigits = 3;
@@ -52,12 +55,12 @@ function startGame() {
 
     const difficultyNames = ["Kolay", "Orta", "Zor"];
     let levelName = difficultyScores < 4 ? 0 : difficultyScores >= 10 ? 2 : 1;
-    levelBox.innerText = difficultyNames[levelName];
+    levelBox.innerText = difficultyScores / 2;
 
     document.getElementById("myPopup").style.display = "none";
     scrbrd.innerText = `Puan: 0`;
 
-    generateNumber(numberLength, RestrictedDigits);
+    generateNumber(RestrictedDigits);
     intervalId = setInterval(moveProgressBar, baseInterval);
 }
 
@@ -100,7 +103,7 @@ function moveProgressBar() {
         width = 0;
         score--;
         scrbrd.innerText = `Puan: ${score}`;
-        generateNumber(numberLength, RestrictedDigits);
+        generateNumber(RestrictedDigits);
         updateScoreDisplay("red");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
@@ -116,10 +119,11 @@ function checkNumber(number) {
     const numberToCheck = number.toString();
     const displayValue = document.getElementById("number-display").innerText;
     if (!displayValue.includes(numberToCheck)) {
-        score++;
+        let difficulty = Number(levelBox.innerText);
+        score = score + difficulty;
         scrbrd.innerText = `Puan: ${score}`;
         width = 0;
-        generateNumber(numberLength, RestrictedDigits);
+        generateNumber(RestrictedDigits);
         updateScoreDisplay("green");
         if (shuffleNumpad) {
             shuffleNumpadKeys();
@@ -130,30 +134,36 @@ function checkNumber(number) {
 }
 
 
-function generateNumber(length, excludedCount) {
-    let result = '';
+function generateNumber(count) {
+    let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    let excludedDigits = new Set();
-    while (excludedDigits.size < excludedCount) {
-        const digit = Math.floor(Math.random() * 9) + 1;
-        excludedDigits.add(digit);
+    if (count < 1 || count > 4) {
+        throw new Error("Count must be between 1 and 4.");
     }
 
-    console.log("Seçilen rakamlar:", Array.from(excludedDigits)); // Seçilen rakamları konsola yazdır
+    let removedDigits = [];
+    for (let i = 0; i < count; i++) {
+        let randomIndex = Math.floor(Math.random() * digits.length);
+        removedDigits.push(digits.splice(randomIndex, 1)[0]);
+    }
+    console.log("Çıkarılan rakamlar: " + removedDigits.join(', '));
 
-    for (let i = 1; i <= 9; i++) {
-        if (!excludedDigits.has(i)) {
-            result += i.toString();
-        }
+    let addedDigits = [];
+    for (let i = 0; i < count; i++) {
+        let randomIndex = Math.floor(Math.random() * digits.length);
+        addedDigits.push(digits[randomIndex]);
+    }
+    console.log("Eklenen rakamlar: " + addedDigits.join(', '));
+    digits = digits.concat(addedDigits);
+
+    for (let i = digits.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [digits[i], digits[j]] = [digits[j], digits[i]];
     }
 
-    while (result.length < length) {
-        const randomIndex = Math.floor(Math.random() * result.length);
-        const randomDigit = Math.floor(Math.random() * 9) + 1;
-        result = result.slice(0, randomIndex) + randomDigit.toString() + result.slice(randomIndex);
-    }
-
+    let result = digits.join('');
     document.getElementById("number-display").innerText = result;
+    return result;
 }
 
 
@@ -176,5 +186,12 @@ function updateScoreDisplay(color) {
         scoreElement.style.transform = "translateY(-40px)";
     }, 1000);
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.code.startsWith('Numpad')) {
+        let button = document.getElementById(event.key);
+        button.click(); 
+    }
+});
 
 document.addEventListener('DOMContentLoaded', updateStatistics);

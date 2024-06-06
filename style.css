@@ -82,6 +82,10 @@ body {
   position: relative;
 }
 
+.content-container p {
+  width: 190px;
+}
+
 .content-container button {
   width: 100px;
   margin-bottom: 10px;
