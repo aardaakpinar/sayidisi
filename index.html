@@ -1,97 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-    <meta name="copyright" content="NAR © 2021 Tüm hakları saklı" />
-    <meta name="theme-color" content="#23b5b5" />
-    <meta property="og:title" content="SayıDışı" />
-    <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-    <meta property="og:image" content="https://devnar.github.io/logos/sayidisi.png" />
-    <meta name="robots" content="index,follow" />
-    <meta name="revisit-after" content="1 days" />
-    <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
-    <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="style.css" />
-    <title>SayıDışı</title>
-</head>
-<body>
-    <!-- Popup -->
-    <div class="popup" id="myPopup">
-        <div class="popup-content">
-            <div class="statistics-container" id="stats">
-                <div class="stat-item">
-                    <p>Toplam<br /> Oynama</p>
-                    <h2 id="gamesPlayed">0</h2>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
+        <meta name="copyright" content="NAR © 2021 Tüm hakları saklı" />
+        <meta name="theme-color" content="#23b5b5" />
+        <meta property="og:title" content="SayıDışı" />
+        <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
+        <meta property="og:image" content="https://devnar.github.io/logos/sayidisi.png" />
+        <meta name="robots" content="index,follow" />
+        <meta name="revisit-after" content="1 days" />
+        <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
+        <link rel="stylesheet" href="style.css" />
+        <title>SayıDışı</title>
+    </head>
+    <body>
+        <!-- Popup -->
+        <div class="popup" id="myPopup">
+            <div class="popup-content">
+                <div class="statistics-container" id="stats">
+                    <div class="stat-item">
+                        <p>Toplam<br /> Oynama</p>
+                        <h2 id="gamesPlayed">0</h2>
+                    </div>
+                    <div class="stat-item highlight">
+                        <p>En Yüksek<br /> Puan</p>
+                        <h2 id="highScore">0</h2>
+                    </div>
+                    <div class="stat-item">
+                        <p>Güncel<br /> Puan</p>
+                        <h2 id="currentScore">0</h2>
+                    </div>
                 </div>
-                <div class="stat-item highlight">
-                    <p>En Yüksek<br /> Puan</p>
-                    <h2 id="highScore">0</h2>
-                </div>
-                <div class="stat-item">
-                    <p>Güncel<br /> Puan</p>
-                    <h2 id="currentScore">0</h2>
-                </div>
-            </div>
-            <div class="content-container">
-                <div>
-                    <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.<br><br> oyunu zorlaştırmak için yandan özellikler seçebilirsin -></p>
-                    <button onclick="startGame(0)">Başla</button>
-                </div>
-                <div class="scrollable-list">
-                  <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
-                  <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
-                  <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
-                  <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
-                  <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
-                  <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
-                  <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
+                <div class="content-container">
+                    <div>
+                        <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.<br><br> oyunu zorlaştırmak için yandan özellikler seçebilirsin -></p>
+                        <button onclick="startGame(0)">Başla</button>
+                    </div>
+                    <div class="scrollable-list">
+                      <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
+                      <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
+                      <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
+                      <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
+                      <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Main Content -->
-    <div id="top-section">
-        <div id="number-display">000000000</div>
-        <div id="info-bar">
-            <span id="green-increase">+1</span>
-            <span id="red-increase">-1</span>
-            <span id="score" class="left">Puan: 0</span>
-            <span id="level" class="right">Zorluk</span>
+        <!-- Main Content -->
+        <div id="top-section">
+            <div id="number-display">000000000</div>
+            <div id="info-bar">
+                <span id="green-increase">+1</span>
+                <span id="red-increase">-1</span>
+                <span id="score" class="left">Puan: 0</span>
+                <span id="level" class="right">Zorluk</span>
+            </div>
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
         </div>
-        <div id="progress-bar">
-            <div id="progress"></div>
+        <div id="bottom-section">
+            <div class="button-group">
+                <div class="number-button" id="7" onclick="checkNumber(this.innerText)">7</div>
+                <div class="number-button" id="8" onclick="checkNumber(this.innerText)">8</div>
+                <div class="number-button" id="9" onclick="checkNumber(this.innerText)">9</div>
+            </div>
+            <div class="button-group">
+                <div class="number-button" id="4" onclick="checkNumber(this.innerText)">4</div>
+                <div class="number-button" id="5" onclick="checkNumber(this.innerText)">5</div>
+                <div class="number-button" id="6" onclick="checkNumber(this.innerText)">6</div>
+            </div>
+            <div class="button-group">
+                <div class="number-button" id="1" onclick="checkNumber(this.innerText)">1</div>
+                <div class="number-button" id="2" onclick="checkNumber(this.innerText)">2</div>
+                <div class="number-button" id="3" onclick="checkNumber(this.innerText)">3</div>
+            </div>
         </div>
-    </div>
-    <div id="bottom-section">
-        <div class="button-group">
-            <div class="number-button" id="7" onclick="checkNumber(this.innerText)">7</div>
-            <div class="number-button" id="8" onclick="checkNumber(this.innerText)">8</div>
-            <div class="number-button" id="9" onclick="checkNumber(this.innerText)">9</div>
-        </div>
-        <div class="button-group">
-            <div class="number-button" id="4" onclick="checkNumber(this.innerText)">4</div>
-            <div class="number-button" id="5" onclick="checkNumber(this.innerText)">5</div>
-            <div class="number-button" id="6" onclick="checkNumber(this.innerText)">6</div>
-        </div>
-        <div class="button-group">
-            <div class="number-button" id="1" onclick="checkNumber(this.innerText)">1</div>
-            <div class="number-button" id="2" onclick="checkNumber(this.innerText)">2</div>
-            <div class="number-button" id="3" onclick="checkNumber(this.innerText)">3</div>
-        </div>
-    </div>
-    <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-            .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            }).catch(function(error) {
-                console.log('Service Worker registration failed:', error);
-            });
-        }
-    </script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
