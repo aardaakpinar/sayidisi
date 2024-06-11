@@ -4,7 +4,9 @@ const urlsToCache = [
   '/index.html',
   '/style.css',
   '/script.js',
-  '/https://devnar.github.io/logos/sayidisi.png'
+  '/https://devnar.github.io/logos/sayidisi.png',
+  '/service-worker.js',
+  '/manifest.json'
 ];
 
 // Install a service worker
