@@ -12,6 +12,7 @@
         <meta name="robots" content="index,follow" />
         <meta name="revisit-after" content="1 days" />
         <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
+        <link rel="manifest" href="/manifest.json">
         <link rel="stylesheet" href="style.css" />
         <title>SayıDışı</title>
     </head>
@@ -82,5 +83,15 @@
             </div>
         </div>
         <script src="script.js"></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+            }
+        </script>
     </body>
 </html>

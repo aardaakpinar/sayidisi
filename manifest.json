@@ -1,0 +1,22 @@
+{
+    "name": "SayıDışı",
+    "short_name": "SayıDışı",
+    "description": "9 haneli sayıdan olmayan rakamı bulabilir misin?",
+    "icons": [
+      {
+        "src": "https://devnar.github.io/logos/sayidisi.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://devnar.github.io/logos/sayidisi.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#23b5b5",
+    "theme_color": "#23b5b5"
+  }
+  
