@@ -146,14 +146,12 @@ function generateNumber(count) {
         let randomIndex = Math.floor(Math.random() * digits.length);
         removedDigits.push(digits.splice(randomIndex, 1)[0]);
     }
-    console.log("Çıkarılan rakamlar: " + removedDigits.join(', '));
 
     let addedDigits = [];
     for (let i = 0; i < count; i++) {
         let randomIndex = Math.floor(Math.random() * digits.length);
         addedDigits.push(digits[randomIndex]);
     }
-    console.log("Eklenen rakamlar: " + addedDigits.join(', '));
     digits = digits.concat(addedDigits);
 
     for (let i = digits.length - 1; i > 0; i--) {
