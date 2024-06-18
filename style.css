@@ -32,6 +32,16 @@ body {
   max-width: 400px;
 }
 
+.Leaderboard {
+  background-color: #fff;
+  margin: 15px auto;
+  border-radius: 5px;
+  padding: 10px;
+  border: 2px solid #333;
+  width: 100%;
+  font-size: large;
+}
+
 /* Statistic */
 .statistics-container {
   display: flex;
