@@ -87,7 +87,7 @@ function endGame() {
     localStorage.setItem('gamesPlayed', gamesPlayed);
     localStorage.setItem('highScore', highScore);
     updateStatistics();
-    updateOrCreatePlayerScore(prompt("Leaderboard'da gözükecek isim"), highScore);
+    updateOrCreatePlayerScore("lastUser", highScore);
     width = 0;
     score = 0;
     scrbrd.innerText = `Puan: ${score}`;
@@ -100,8 +100,7 @@ async function updateOrCreatePlayerScore(playerName, increment) {
     let player = data.players.find(player => player.name === playerName);
 
     if (player) {
-        let currentScore = player.score;
-        let newScore = currentScore + increment;
+        let newScore = increment;
 
         await fetch(`https://keepthescore.com/api/vgkhtnkmtgyye/score/`, {
             method: 'POST',
