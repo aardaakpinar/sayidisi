@@ -22,7 +22,6 @@ if (localStorage.getItem("uid") == null || localStorage.getItem("uid") == "") {
         });
     }
     
-    // Benzersiz bir ID oluştur ve yazdır
     const benzersizId = benzersizIdOlustur();
     localStorage.setItem("uid", benzersizId);
 } else {
