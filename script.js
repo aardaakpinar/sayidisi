@@ -25,6 +25,8 @@ if (localStorage.getItem("uid") == null || localStorage.getItem("uid") == "") {
     // Benzersiz bir ID oluştur ve yazdır
     const benzersizId = benzersizIdOlustur();
     localStorage.setItem("uid", benzersizId);
+} else {
+    leaderboard(highScore)
 }
 
 function updateStatistics() {
@@ -265,7 +267,6 @@ function generateNumber(count) {
     for (let i = 0; i < count; i++) {
         let randomIndex = Math.floor(Math.random() * digits.length);
         removedDigits.push(digits.splice(randomIndex, 1)[0]);
-        console.log(removedDigits)
     }
 
     let addedDigits = [];
