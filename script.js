@@ -1,8 +1,6 @@
 const progressBar = document.getElementById("progress");
 const scrbrd = document.getElementById("score");
 const levelBox = document.getElementById("level");
-const token = 'vgkhtnkmtgyye';
-const playerName = localStorage.getItem('uid');
 
 let width = 0;
 let RestrictedDigits = 4;
@@ -11,22 +9,6 @@ let intervalId;
 let shuffleNumpad = false;
 let gamesPlayed = parseInt(localStorage.getItem('gamesPlayed')) || 0;
 let highScore = parseInt(localStorage.getItem('highScore')) || 0;
-
-
-if (localStorage.getItem("uid") == null || localStorage.getItem("uid") == "") {
-    function benzersizIdOlustur() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-    
-    const benzersizId = benzersizIdOlustur();
-    localStorage.setItem("uid", benzersizId);
-} else {
-    leaderboard(highScore)
-}
 
 function updateStatistics() {
     document.getElementById('gamesPlayed').textContent = gamesPlayed;
@@ -90,67 +72,6 @@ function inputDisabled(id, relatedIds = []) {
     });
 }
 
-async function leaderboard(highScore) {
-    const response = await fetch(`https://keepthescore.com/api/${token}/board/`);
-    const data = await response.json();
-    
-    let player = data.players.find(player => player.name === playerName);
-
-    if (player) {
-        let currentScore = player.score;
-
-        if (currentScore <= highScore) {
-            let newScore = highScore - currentScore 
-            await fetch(`https://keepthescore.com/api/${token}/score/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    player_id: player.id,
-                    score: newScore
-                })
-            });
-
-            console.log(`Player ${player.name} score updated to ${newScore}`);
-        } else {
-            console.log(`Player ${player.name} already has a higher score (${currentScore}). No update needed.`);
-        }
-
-        const updatedResponse = await fetch(`https://keepthescore.com/api/${token}/board/`);
-        const updatedData = await updatedResponse.json();
-        const sortedPlayers = updatedData.players.sort((a, b) => b.score - a.score);
-        const playerRank = sortedPlayers.findIndex(p => p.name === playerName) + 1;
-
-        document.getElementById("Leaderboard").innerText = `Sıralaman: ${playerRank}`;
-    } else {
-        const createResponse = await fetch(`https://keepthescore.com/api/${token}/player/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: playerName
-            })
-        });
-        const newPlayer = await createResponse.json();
-
-        await fetch(`https://keepthescore.com/api/${token}/score/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                player_id: newPlayer.id,
-                score: highScore
-            })
-        });
-
-        console.log(`New player ${playerName} created with score ${highScore}`);
-        document.getElementById("Leaderboard").innerText = `Sıralaman: ${data.players.length + 1}`;
-    }
-}
-
 function endGame() {
     clearInterval(intervalId);
     document.getElementById("myPopup").style.display = "block";
@@ -165,54 +86,6 @@ function endGame() {
     width = 0;
     score = 0;
     scrbrd.innerText = `Puan: ${score}`;
-}
-
-async function updateOrCreatePlayerScore(playerName, increment) {
-    const response = await fetch(`https://keepthescore.com/api/vgkhtnkmtgyye/board/`);
-    const data = await response.json();
-    
-    let player = data.players.find(player => player.name === playerName);
-
-    if (player) {
-        let newScore = increment;
-
-        await fetch(`https://keepthescore.com/api/vgkhtnkmtgyye/score/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                player_id: player.id,
-                score: newScore
-            })
-        });
-
-        console.log(`Player ${player.name} score updated to ${newScore}`);
-    } else {
-        const createResponse = await fetch(`https://keepthescore.com/api/vgkhtnkmtgyye/player/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: playerName
-            })
-        });
-        const newPlayer = await createResponse.json();
-
-        await fetch(`https://keepthescore.com/api/vgkhtnkmtgyye/score/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                player_id: newPlayer.id,
-                score: increment
-            })
-        });
-
-        console.log(`New player ${playerName} created with score ${increment}`);
-    }
 }
 
 function pauseGame() {
