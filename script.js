@@ -97,8 +97,11 @@ async function leaderboard() {
         
             console.log(`Player ${player.name} score updated to ${newScore}`);
         } 
-        
-        document.getElementById("leaderboard").innerText = data.players.length + ". sıradasın";
+        const updatedResponse = await fetch(`https://keepthescore.com/api/${token}/board/`);
+        const updatedData = await updatedResponse.json();
+        const sortedPlayers = updatedData.players.sort((a, b) => b.score - a.score);
+        const playerRank = sortedPlayers.findIndex(p => p.name === playerName) + 1;
+        document.getElementById("leaderboard").innerText = playerRank + ". sıradasın";
         
     } else {
         const createResponse = await fetch(`https://keepthescore.com/api/${token}/player/`, {
