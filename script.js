@@ -97,7 +97,8 @@ async function leaderboard() {
         
             console.log(`Player ${player.name} score updated to ${newScore}`);
         } 
-            document.getElementById("leaderboard").innerText = data.players.length + ". sıradasın";
+        
+        document.getElementById("leaderboard").innerText = data.players.length + ". sıradasın";
         
     } else {
         const createResponse = await fetch(`https://keepthescore.com/api/${token}/player/`, {
@@ -242,7 +243,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 function generateUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'SAxxxxxxxyxxxxIxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0,
             v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
@@ -251,7 +252,7 @@ function generateUID() {
 
 document.addEventListener('DOMContentLoaded', updateStatistics);
 if (playerName == null) {
-    generateUID();
+    localStorage.setItem("uid",generateUID());
 } else {
     leaderboard()
 }
