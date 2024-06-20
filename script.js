@@ -1,6 +1,8 @@
 const progressBar = document.getElementById("progress");
 const scrbrd = document.getElementById("score");
 const levelBox = document.getElementById("level");
+const token = 'vgkhtnkmtgyye';
+const playerName = localStorage.getItem("uid");
 
 let width = 0;
 let RestrictedDigits = 4;
@@ -72,6 +74,59 @@ function inputDisabled(id, relatedIds = []) {
     });
 }
 
+async function leaderboard() {
+    const response = await fetch(`https://keepthescore.com/api/${token}/board/`);
+    const data = await response.json();
+    
+    let player = data.players.find(player => player.name === playerName);
+
+    if (player) {
+        let boardScore = player.score;
+        if (boardScore < highScore) {
+            newScore = highScore - boardScore;
+            await fetch(`https://keepthescore.com/api/${token}/score/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    player_id: player.id,
+                    score: newScore
+                })
+            });
+        
+            console.log(`Player ${player.name} score updated to ${newScore}`);
+        } 
+            document.getElementById("leaderboard").innerText = data.players.length + ". sıradasın";
+        
+    } else {
+        const createResponse = await fetch(`https://keepthescore.com/api/${token}/player/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: playerName
+            })
+        });
+        const newPlayer = await createResponse.json();
+
+        await fetch(`https://keepthescore.com/api/${token}/score/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                player_id: newPlayer.id,
+                score: highScore
+            })
+        });
+
+        console.log(`New player ${playerName} created with score ${highScore}`);
+        document.getElementById("leaderboard").innerText = data.players.length + 1 + ". sıradasın";
+    }
+}
+
 function endGame() {
     clearInterval(intervalId);
     document.getElementById("myPopup").style.display = "block";
@@ -82,7 +137,7 @@ function endGame() {
     localStorage.setItem('gamesPlayed', gamesPlayed);
     localStorage.setItem('highScore', highScore);
     updateStatistics();
-    leaderboard(highScore);
+    leaderboard();
     width = 0;
     score = 0;
     scrbrd.innerText = `Puan: ${score}`;
@@ -186,4 +241,17 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+function generateUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', updateStatistics);
+if (playerName == null) {
+    generateUID();
+} else {
+    leaderboard()
+}
