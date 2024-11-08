@@ -14,6 +14,8 @@
         <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
         <link rel="stylesheet" href="style.css" />
         <title>SayıDışı</title>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
     </head>
     <body>
         <!-- Popup -->
@@ -40,13 +42,14 @@
                         <button onclick="startGame(0)">Başla</button>
                     </div>
                     <div class="scrollable-list">
-                      <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
-                      <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
-                      <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
-                      <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
-                      <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
+                        <label><input type="checkbox" name="option" id="increaseTime10" oninput="inputDisabled('increaseTime10', ['reduceTime10', 'reduceTime13', 'reduceTime15'])" /> Süreyi Artır (+10)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['increaseTime10','reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['increaseTime10','reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['increaseTime10','reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
+                        <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
                     </div>
                 </div>
             </div>
