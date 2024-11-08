@@ -1,1 +1,269 @@
-const firebaseConfig={apiKey:"AIzaSyCjFJ1rAQfTN4FJvajX-sz4T8C09SkJF7A",databaseURL:"https://nar-sayidisi-default-rtdb.europe-west1.firebasedatabase.app",projectId:"nar-sayidisi"};firebase.apps.length?firebase.app():firebase.initializeApp(firebaseConfig);const database=firebase.database(),progressBar=document.getElementById("progress"),scrbrd=document.getElementById("score"),levelBox=document.getElementById("level"),playerName=localStorage.getItem("uid");let intervalId,width=0,RestrictedDigits=4,score=0,shuffleNumpad=!1,gamesPlayed=parseInt(localStorage.getItem("gamesPlayed"))||0,highScore=parseInt(localStorage.getItem("highScore"))||0;function updateStatistics(){document.getElementById("gamesPlayed").textContent=gamesPlayed,document.getElementById("highScore").textContent=highScore,document.getElementById("currentScore").textContent=score}function startGame(){let e=25,t=2;shuffleNumpad=document.getElementById("shuffleNumpad").checked,shuffleNumpad&&(shuffleNumpadKeys(),t+=5),document.getElementById("increaseTime10").checked&&(e+=10,t-=1),document.getElementById("reduceTime10").checked&&(e-=10,t+=1),document.getElementById("reduceTime13").checked&&(e-=13,t+=4),document.getElementById("reduceTime15").checked&&(e-=15,t+=5),document.getElementById("3Digits").checked&&(RestrictedDigits=3,t+=2),document.getElementById("2Digits").checked&&(RestrictedDigits=2,t+=3),document.getElementById("1Digits").checked&&(RestrictedDigits=1,t+=4),levelBox.innerText=t/2,document.getElementById("myPopup").style.display="none",scrbrd.innerText="Puan: 0",generateNumber(RestrictedDigits),intervalId=setInterval(moveProgressBar,e)}function inputDisabled(e,t=[]){const a=document.getElementById(e);t.forEach((e=>{const t=document.getElementById(e);t&&(t.disabled=a.checked)}))}async function leaderboard(){let e=localStorage.getItem("uid");e||(e=generateUID(),localStorage.setItem("uid",e),console.log(`New player created with ID: ${e}`));const t=database.ref("leaderboard"),a=(await t.once("value")).val()||{};let r=a[e];if(r){r.score<highScore&&(t.child(e).update({score:highScore}),console.log(`Player ${e} score updated to ${highScore}`));const a=(await t.once("value")).val()||{},n=Object.keys(a).map((e=>({uid:e,score:a[e].score}))).sort(((e,t)=>t.score-e.score)).findIndex((t=>t.uid===e))+1;document.getElementById("leaderboard").innerText=n>0?n+". sıradasın":"Sıralama hatası"}else t.child(e).set({score:highScore}),console.log(`New player ${e} created with score ${highScore}`),document.getElementById("leaderboard").innerText=Object.keys(a).length+1+". sıradasın"}function endGame(){clearInterval(intervalId),document.getElementById("myPopup").style.display="block",gamesPlayed++,score>highScore&&(highScore=score),localStorage.setItem("gamesPlayed",gamesPlayed),localStorage.setItem("highScore",highScore),updateStatistics(),leaderboard(),width=0,score=0,scrbrd.innerText=`Puan: ${score}`}function pauseGame(){clearInterval(intervalId)}function moveProgressBar(){width>=100?(width=0,score--,scrbrd.innerText=`Puan: ${score}`,generateNumber(RestrictedDigits),updateScoreDisplay("red"),shuffleNumpad&&shuffleNumpadKeys()):(width++,progressBar.style.width=width+"%")}function checkNumber(e){const t=e.toString();if(document.getElementById("number-display").innerText.includes(t))endGame();else{let e=Number(levelBox.innerText);score+=e,scrbrd.innerText=`Puan: ${score}`,width=0,generateNumber(RestrictedDigits),updateScoreDisplay("green"),shuffleNumpad&&shuffleNumpadKeys()}}function generateNumber(e){let t=[1,2,3,4,5,6,7,8,9];if(e<1||e>4)throw new Error("Count must be between 1 and 4.");let a=[];for(let r=0;r<e;r++){let e=Math.floor(Math.random()*t.length);a.push(t.splice(e,1)[0])}let r=[];for(let a=0;a<e;a++){let e=Math.floor(Math.random()*t.length);r.push(t[e])}t=t.concat(r);for(let e=t.length-1;e>0;e--){let a=Math.floor(Math.random()*(e+1));[t[e],t[a]]=[t[a],t[e]]}let n=t.join("");return document.getElementById("number-display").innerText=n,n}function shuffleNumpadKeys(){const e=Array.from(document.getElementsByClassName("number-button")),t=e.map((e=>e.innerText)).sort((()=>Math.random()-.5));e.forEach(((e,a)=>{e.innerText=t[a]}))}function updateScoreDisplay(e){const t=document.getElementById(`${e}-increase`);t.style.opacity="1",t.style.transform="translateY(0)",setTimeout((()=>{t.style.opacity="0",t.style.transform="translateY(-40px)"}),1e3)}function generateUID(){return"SAxxxxxxxyxxxxIxxx".replace(/[xy]/g,(function(e){var t=16*Math.random()|0;return("x"===e?t:3&t|8).toString(16)}))}document.addEventListener("keydown",(function(e){if(e.code.startsWith("Numpad")){document.getElementById(e.key).click()}})),document.addEventListener("DOMContentLoaded",updateStatistics),null==playerName?localStorage.setItem("uid",generateUID()):leaderboard();
+const firebaseConfig = {
+    apiKey: "AIzaSyCjFJ1rAQfTN4FJvajX-sz4T8C09SkJF7A",
+    databaseURL: "https://nar-sayidisi-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "nar-sayidisi"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+} else {
+    firebase.app();
+}
+
+const database = firebase.database();
+const progressBar = document.getElementById("progress");
+const scrbrd = document.getElementById("score");
+const levelBox = document.getElementById("level");
+const playerName = localStorage.getItem("uid");
+
+let width = 0;
+let RestrictedDigits = 4;
+let score = 0;
+let intervalId;
+let shuffleNumpad = false;
+let gamesPlayed = parseInt(localStorage.getItem('gamesPlayed')) || 0;
+let highScore = parseInt(localStorage.getItem('highScore')) || 0;
+
+function updateStatistics() {
+    document.getElementById('gamesPlayed').textContent = gamesPlayed;
+    document.getElementById('highScore').textContent = highScore;
+    document.getElementById('currentScore').textContent = score;
+}
+
+
+function startGame() {
+    let baseInterval = 25;
+    let difficultyScores = 2;
+
+    shuffleNumpad = document.getElementById("shuffleNumpad").checked;
+    if (shuffleNumpad) {
+        shuffleNumpadKeys();
+        difficultyScores += 5;
+    }
+    if (document.getElementById("increaseTime10").checked) {
+        baseInterval += 10;
+        difficultyScores -= 1;
+    }
+    if (document.getElementById("reduceTime10").checked) {
+        baseInterval -= 10;
+        difficultyScores += 1;
+    }
+    if (document.getElementById("reduceTime13").checked) {
+        baseInterval -= 13;
+        difficultyScores += 4;
+    }
+    if (document.getElementById("reduceTime15").checked) {
+        baseInterval -= 15;
+        difficultyScores += 5;
+    }
+    if (document.getElementById("3Digits").checked) {
+        RestrictedDigits = 3;
+        difficultyScores += 2;
+    }
+    if (document.getElementById("2Digits").checked) {
+        RestrictedDigits = 2;
+        difficultyScores += 3;
+    }
+    if (document.getElementById("1Digits").checked) {
+        RestrictedDigits = 1;
+        difficultyScores += 4;
+    }
+
+    levelBox.innerText = difficultyScores / 2;
+
+    document.getElementById("myPopup").style.display = "none";
+    scrbrd.innerText = `Puan: 0`;
+
+    generateNumber(RestrictedDigits);
+    intervalId = setInterval(moveProgressBar, baseInterval);
+}
+
+
+function inputDisabled(id, relatedIds = []) {
+    const element = document.getElementById(id);
+
+    relatedIds.forEach(relatedId => {
+        const relatedElement = document.getElementById(relatedId);
+        if (relatedElement) {
+            relatedElement.disabled = element.checked;
+        }
+    });
+}
+
+async function leaderboard() {
+    let playerId = localStorage.getItem('uid');
+    
+    if (!playerId) {
+        playerId = generateUID();
+        localStorage.setItem('uid', playerId);
+        console.log(`New player created with ID: ${playerId}`);
+    }
+
+    const playerRef = database.ref('leaderboard');
+    const snapshot = await playerRef.once('value');
+    const data = snapshot.val() || {};
+
+    let player = data[playerId];
+
+    if (player) {
+        if (player.score < highScore) {
+            playerRef.child(playerId).update({ score: highScore });
+
+            console.log(`Player ${playerId} score updated to ${highScore}`);
+        }
+
+        const updatedSnapshot = await playerRef.once('value');
+        const updatedData = updatedSnapshot.val() || {};
+
+        const sortedPlayers = Object.keys(updatedData)
+            .map(key => ({
+                uid: key,
+                score: updatedData[key].score
+            }))
+            .sort((a, b) => b.score - a.score);
+
+        const playerRank = sortedPlayers.findIndex(player => player.uid === playerId) + 1;
+
+        if (playerRank > 0) {
+            document.getElementById("leaderboard").innerText = playerRank + ". sıradasın";
+        } else {
+            document.getElementById("leaderboard").innerText = "Sıralama hatası";
+        }
+    } else {
+        playerRef.child(playerId).set({
+            score: Number(highScore) 
+        });
+
+        console.log(`New player ${playerId} created with score ${highScore}`);
+        document.getElementById("leaderboard").innerText = Object.keys(data).length + 1 + ". sıradasın";
+    }
+}
+
+function endGame() {
+    clearInterval(intervalId);
+    document.getElementById("myPopup").style.display = "block";
+    gamesPlayed++;
+    if (score > highScore) {
+        highScore = score;
+    }
+    localStorage.setItem('gamesPlayed', gamesPlayed);
+    localStorage.setItem('highScore', highScore);
+    updateStatistics();
+    leaderboard();
+    width = 0;
+    score = 0;
+    scrbrd.innerText = `Puan: ${score}`;
+}
+
+function pauseGame() {
+    clearInterval(intervalId);
+}
+
+function moveProgressBar() {
+    if (width >= 100) {
+        width = 0;
+        score--;
+        scrbrd.innerText = `Puan: ${score}`;
+        generateNumber(RestrictedDigits);
+        updateScoreDisplay("red");
+        if (shuffleNumpad) {
+            shuffleNumpadKeys();
+        }
+    } else {
+        width++;
+        progressBar.style.width = width + "%";
+    }
+}
+
+
+function checkNumber(number) {
+    const numberToCheck = number.toString();
+    const displayValue = document.getElementById("number-display").innerText;
+    if (!displayValue.includes(numberToCheck)) {
+        let difficulty = Number(levelBox.innerText);
+        score = score + difficulty;
+        scrbrd.innerText = `Puan: ${score}`;
+        width = 0;
+        generateNumber(RestrictedDigits);
+        updateScoreDisplay("green");
+        if (shuffleNumpad) {
+            shuffleNumpadKeys();
+        }
+    } else {
+        endGame();
+    }
+}
+
+
+function generateNumber(count) {
+    let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    if (count < 1 || count > 4) {
+        throw new Error("Count must be between 1 and 4.");
+    }
+
+    let removedDigits = [];
+    for (let i = 0; i < count; i++) {
+        let randomIndex = Math.floor(Math.random() * digits.length);
+        removedDigits.push(digits.splice(randomIndex, 1)[0]);
+    }
+
+    let addedDigits = [];
+    for (let i = 0; i < count; i++) {
+        let randomIndex = Math.floor(Math.random() * digits.length);
+        addedDigits.push(digits[randomIndex]);
+    }
+    digits = digits.concat(addedDigits);
+
+    for (let i = digits.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [digits[i], digits[j]] = [digits[j], digits[i]];
+    }
+
+    let result = digits.join('');
+    document.getElementById("number-display").innerText = result;
+    return result;
+}
+
+
+function shuffleNumpadKeys() {
+    const numpadButtons = Array.from(document.getElementsByClassName("number-button"));
+    const shuffledNumbers = numpadButtons.map(button => button.innerText).sort(() => Math.random() - 0.5);
+
+    numpadButtons.forEach((button, index) => {
+        button.innerText = shuffledNumbers[index];
+    });
+}
+
+
+function updateScoreDisplay(color) {
+    const scoreElement = document.getElementById(`${color}-increase`);
+    scoreElement.style.opacity = "1";
+    scoreElement.style.transform = "translateY(0)";
+    setTimeout(() => {
+        scoreElement.style.opacity = "0";
+        scoreElement.style.transform = "translateY(-40px)";
+    }, 1000);
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.code.startsWith('Numpad')) {
+        let button = document.getElementById(event.key);
+        button.click(); 
+    }
+});
+
+function generateUID() {
+    return 'SAxxxxxxxyxxxxIxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', updateStatistics);
+if (playerName == null) {
+    localStorage.setItem("uid",generateUID());
+} else {
+    leaderboard()
+}
