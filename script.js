@@ -1,8 +1,5 @@
 const firebaseConfig = {
-  apiKey: "",
-  databaseURL:
-    "https://nar-sayidisi-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "nar-sayidisi"
+  apiKey:atob("QUl6YVN5Q2pGSjFyQVFmVE40Rkp2YWpYLXN6NFQ4QzA5U2tKRjdB"),databaseURL:atob("aHR0cHM6Ly9uYXItc2F5aWRpc2ktZGVmYXVsdC1ydGRiLmV1cm9wZS13ZXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcA"),projectId:atob("bmFyLXNheWlkaXNp")
 };
 
 if (!firebase.apps.length) {
