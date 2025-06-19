@@ -238,7 +238,7 @@ body {
     position: absolute;
     width: 24px;
     height: 3px;
-    background: #23b5b5;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);;
     border-radius: 6px;
     transition: 0.5s;
 }
