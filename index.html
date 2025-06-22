@@ -18,144 +18,71 @@
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
     </head>
     <body>
-        <button class="sidebar-toggle" id="sidebarToggle">
-            <div class="toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
-
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <img src="https://devnar.github.io/logos/sayidisi.png" alt="SayıDışı">
-            </div>
-
-            <div class="game-mode-section">
-                <h3 class="section-title">Oyun Modu</h3>
-                <div class="game-mode-option active" onclick="selectGameMode('classic')">
-                    <input type="radio" name="gameMode" value="classic" checked />
-                    <div class="game-mode-info">
-                        <h3>Klasik</h3>
-                        <p>Sayıda OLMAYAN rakamı bul</p>
+        <!-- Popup -->
+        <div class="popup" id="myPopup">
+            <div class="popup-content">
+                <div class="statistics-container" id="stats">
+                    <div class="stat-item">
+                        <p>Toplam<br /> Oynama</p>
+                        <h2 id="gamesPlayed">0</h2>
+                    </div>
+                    <div class="stat-item highlight">
+                        <p>En Yüksek<br /> Puan</p>
+                        <h2 id="highScore">0</h2>
+                    </div>
+                    <div class="stat-item">
+                        <p>Güncel<br /> Puan</p>
+                        <h2 id="currentScore">0</h2>
                     </div>
                 </div>
-                <div class="game-mode-option" onclick="selectGameMode('opposite')">
-                    <input type="radio" name="gameMode" value="opposite" />
-                    <div class="game-mode-info">
-                        <h3>Zıt</h3>
-                        <p>Sayıda OLAN rakamı bul</p>
+                <button class="leaderboard" id="leaderboard">x. Sıradasın</button>
+                <div class="content-container">
+                    <div>
+                        <p id="text">9 haneli sayıdan olmayan rakamı bulmaya çalış.<br><br> oyunu zorlaştırmak için yandan özellikler seçebilirsin -></p>
+                        <button onclick="startGame(0)">Başla</button>
+                    </div>
+                    <div class="scrollable-list">
+                        <label><input type="checkbox" name="option" id="increaseTime10" oninput="inputDisabled('increaseTime10', ['reduceTime10', 'reduceTime13', 'reduceTime15'])" /> Süreyi Artır (+10)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['increaseTime10','reduceTime13', 'reduceTime15'])" /> Süreyi Azalt (-10)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime13" oninput="inputDisabled('reduceTime13', ['increaseTime10','reduceTime10', 'reduceTime15'])" /> Süreyi Azalt (-13)</label>
+                        <label><input type="checkbox" name="option" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['increaseTime10','reduceTime10', 'reduceTime13'])" /> Süreyi Azalt (-15)</label>
+                        <label><input type="checkbox" name="option" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" /> 3 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" /> 2 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" /> 1 Olmayan Rakam</label>
+                        <label><input type="checkbox" name="option" id="shuffleNumpad"/> Klavye Değiştir</label>
                     </div>
                 </div>
             </div>
-
-            <div class="settings-section">
-                <h3 class="section-title">Ses Ayarları</h3>
-                <div class="sound-controls">
-                    <span>🔊</span>
-                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50" />
-                    <span id="volumeValue">50%</span>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h3 class="section-title">Zorluk Ayarları</h3>
-                <div class="settings-grid">
-                    <label class="setting-item">
-                        <input type="checkbox" id="increaseTime10" oninput="inputDisabled('increaseTime10', ['reduceTime10', 'reduceTime13', 'reduceTime15'])" />
-                        <span>Süreyi Artır (+10)</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="reduceTime10" oninput="inputDisabled('reduceTime10', ['increaseTime10','reduceTime13', 'reduceTime15'])" />
-                        <span>Süreyi Azalt (-10)</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="reduceTime15" oninput="inputDisabled('reduceTime15', ['increaseTime10','reduceTime10', 'reduceTime13'])" />
-                        <span>Süreyi Azalt (-15)</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="3Digits" oninput="inputDisabled('3Digits', ['2Digits', '1Digits'])" />
-                        <span>3 Olmayan Rakam</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="2Digits" oninput="inputDisabled('2Digits', ['3Digits', '1Digits'])" />
-                        <span>2 Olmayan Rakam</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="1Digits" oninput="inputDisabled('1Digits', ['3Digits', '2Digits'])" />
-                        <span>1 Olmayan Rakam</span>
-                    </label>
-                    <label class="setting-item">
-                        <input type="checkbox" id="shuffleNumpad" />
-                        <span>Klavye Karıştır</span>
-                    </label>
-                </div>
-            </div>
-
-            <button class="start-game-btn" onclick="startGame()">Oyunu Başlat</button>
         </div>
 
         <!-- Main Content -->
-        <div class="main-content" id="mainContent">
-            <!-- Game Over Popup -->
-            <div class="popup" id="myPopup">
-                <div class="popup-content">
-                    <div class="statistics-container" id="stats">
-                        <div class="stat-item">
-                            <p>Toplam Oynama</p>
-                            <h2 id="gamesPlayed">0</h2>
-                        </div>
-                        <div class="stat-item highlight">
-                            <p>En Yüksek Puan</p>
-                            <h2 id="highScore">0</h2>
-                        </div>
-                        <div class="stat-item">
-                            <p>Güncel Puan</p>
-                            <h2 id="currentScore">0</h2>
-                        </div>
-                    </div>
-
-                    <button class="leaderboard" id="leaderboard">Sıralama yükleniyor...</button>
-
-                    <div class="game-over-actions">
-                        <button class="restart-btn" onclick="startGame()">Tekrar Oyna</button>
-                        <button class="menu-btn" onclick="showMenu()">Ana Menü</button>
-                    </div>
-                </div>
+        <div id="top-section">
+            <div id="number-display">000000000</div>
+            <div id="info-bar">
+                <span id="green-increase">+1</span>
+                <span id="red-increase">-1</span>
+                <span id="score" class="left">Puan: 0</span>
+                <span id="level" class="right">Zorluk</span>
             </div>
-
-            <!-- Game Area -->
-            <div id="top-section">
-                <div class="game-mode-indicator" id="gameModeIndicator">Klasik</div>
-                <div id="number-display">000000000</div>
-                <div id="info-bar">
-                    <span id="score">Puan: 0</span>
-                    <span id="level">Zorluk: 1</span>
-                </div>
-                <div id="green-increase">+1</div>
-                <div id="red-increase">-1</div>
-                <div id="progress-bar">
-                    <div id="progress"></div>
-                </div>
+            <div id="progress-bar">
+                <div id="progress"></div>
             </div>
-
-            <div id="bottom-section">
-                <div class="button-group">
-                    <button class="number-button" id="7" onclick="checkNumber(this.innerText)">7</button>
-                    <button class="number-button" id="8" onclick="checkNumber(this.innerText)">8</button>
-                    <button class="number-button" id="9" onclick="checkNumber(this.innerText)">9</button>
-                </div>
-                <div class="button-group">
-                    <button class="number-button" id="4" onclick="checkNumber(this.innerText)">4</button>
-                    <button class="number-button" id="5" onclick="checkNumber(this.innerText)">5</button>
-                    <button class="number-button" id="6" onclick="checkNumber(this.innerText)">6</button>
-                </div>
-                <div class="button-group">
-                    <button class="number-button" id="1" onclick="checkNumber(this.innerText)">1</button>
-                    <button class="number-button" id="2" onclick="checkNumber(this.innerText)">2</button>
-                    <button class="number-button" id="3" onclick="checkNumber(this.innerText)">3</button>
-                </div>
+        </div>
+        <div id="bottom-section">
+            <div class="button-group">
+                <div class="number-button" id="7" onclick="checkNumber(this.innerText)">7</div>
+                <div class="number-button" id="8" onclick="checkNumber(this.innerText)">8</div>
+                <div class="number-button" id="9" onclick="checkNumber(this.innerText)">9</div>
+            </div>
+            <div class="button-group">
+                <div class="number-button" id="4" onclick="checkNumber(this.innerText)">4</div>
+                <div class="number-button" id="5" onclick="checkNumber(this.innerText)">5</div>
+                <div class="number-button" id="6" onclick="checkNumber(this.innerText)">6</div>
+            </div>
+            <div class="button-group">
+                <div class="number-button" id="1" onclick="checkNumber(this.innerText)">1</div>
+                <div class="number-button" id="2" onclick="checkNumber(this.innerText)">2</div>
+                <div class="number-button" id="3" onclick="checkNumber(this.innerText)">3</div>
             </div>
         </div>
         <script src="script.js"></script>
