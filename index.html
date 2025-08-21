@@ -8,10 +8,10 @@
         <meta name="theme-color" content="#6366f1" />
         <meta property="og:title" content="SayıDışı" />
         <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-        <meta property="og:image" content="https://devnar.github.io/logos/sayidisi.png" />
+        <meta property="og:image" content="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png" />
         <meta name="robots" content="index,follow" />
         <meta name="revisit-after" content="1 days" />
-        <link rel="shortcut icon" type="image/png" href="https://devnar.github.io/logos/sayidisi.png" />
+        <link rel="shortcut icon" type="image/png" href="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -21,141 +21,6 @@
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
     </head>
     <body>
-        <!-- Popup -->
-        <div class="popup" id="myPopup">
-            <div class="popup-content">
-                <div class="popup-header">
-                    <h2>SayıDışı</h2>
-                    <p>9 haneli sayıdan olmayan rakamı bul!</p>
-                </div>
-
-                <!-- Tab Navigation -->
-                <div class="tab-navigation">
-                    <button class="tab-button active" onclick="switchTab('game-mode')">
-                        <span class="tab-icon">🎮</span>
-                        Oyun Modu
-                    </button>
-                    <button class="tab-button" onclick="switchTab('statistics')">
-                        <span class="tab-icon">📊</span>
-                        İstatistikler
-                    </button>
-                </div>
-
-                <!-- Game Mode Tab -->
-                <div class="tab-content active" id="game-mode">
-                    <div class="game-mode-container">
-                        <div class="game-description">
-                            <h3>🎮 Oyun Modunu Seç</h3>
-                            <p>Farklı oyun modları ile kendini test et! Her modun kendine özgü zorlukları var.</p>
-                        </div>
-
-                        <div class="game-modes-grid">
-                            <label class="game-mode-card">
-                                <input type="radio" name="gameMode" value="classic" checked />
-                                <div class="mode-content">
-                                    <div class="mode-icon">🎯</div>
-                                    <h4>Klasik</h4>
-                                    <p>9 haneli sayıdan olmayan rakamı bul</p>
-                                </div>
-                                <div class="mode-indicator"></div>
-                            </label>
-
-                            <label class="game-mode-card">
-                                <input type="radio" name="gameMode" value="reverse" />
-                                <div class="mode-content">
-                                    <div class="mode-icon">🔄</div>
-                                    <h4>Ters</h4>
-                                    <p>Ekranda yazan rakamları süre içinde tuşla</p>
-                                </div>
-                                <div class="mode-indicator"></div>
-                            </label>
-
-                            <label class="game-mode-card">
-                                <input type="radio" name="gameMode" value="shuffle" />
-                                <div class="mode-content">
-                                    <div class="mode-icon">🎲</div>
-                                    <h4>Karışık</h4>
-                                    <p>Klavye sürekli yer değiştirir</p>
-                                </div>
-                                <div class="mode-indicator"></div>
-                            </label>
-
-                            <label class="game-mode-card">
-                                <input type="radio" name="gameMode" value="speed" />
-                                <div class="mode-content">
-                                    <div class="mode-icon">⚡</div>
-                                    <h4>Hız</h4>
-                                    <p>Daha hızlı tempoda oyna</p>
-                                </div>
-                                <div class="mode-indicator"></div>
-                            </label>
-                        </div>
-
-                        <div class="mode-description" id="modeDescription">
-                            <h4>📋 Klasik Mod</h4>
-                            <p>Geleneksel oyun modu. 9 haneli sayıda bulunmayan rakamı bulmaya çalış. Doğru cevap verdiğinde puan kazan, yanlış cevap verdiğinde oyun biter.</p>
-                        </div>
-
-                        <button class="start-button" onclick="startGame()">
-                            <span>🚀</span>
-                            Oyunu Başlat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Statistics Tab -->
-                <div class="tab-content" id="statistics">
-                    <div class="statistics-section">
-                        <h3>📈 Oyun İstatistiklerin</h3>
-                        <div class="statistics-container" id="stats">
-                            <div class="stat-item">
-                                <div class="stat-number" id="gamesPlayed">0</div>
-                                <div class="stat-label">Toplam Oyun</div>
-                            </div>
-                            <div class="stat-item highlight">
-                                <div class="stat-number" id="highScore">0</div>
-                                <div class="stat-label">En Yüksek Puan</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number" id="currentScore">0</div>
-                                <div class="stat-label">Son Puan</div>
-                            </div>
-                        </div>
-
-                        <div class="leaderboard-section">
-                            <h4>🏆 Liderlik Tablosu</h4>
-                            <button class="leaderboard" id="leaderboard">
-                                <span class="leaderboard-icon">👑</span>
-                                x. Sıradasın
-                            </button>
-                        </div>
-
-                        <div class="achievements-preview">
-                            <h4>🎖️ Başarılar</h4>
-                            <div class="achievement-grid">
-                                <div class="achievement-item">
-                                    <span class="achievement-icon">🎯</span>
-                                    <span class="achievement-text">İlk Oyun</span>
-                                </div>
-                                <div class="achievement-item">
-                                    <span class="achievement-icon">🔥</span>
-                                    <span class="achievement-text">10 Oyun</span>
-                                </div>
-                                <div class="achievement-item">
-                                    <span class="achievement-icon">⭐</span>
-                                    <span class="achievement-text">Yüksek Puan</span>
-                                </div>
-                                <div class="achievement-item locked">
-                                    <span class="achievement-icon">🏅</span>
-                                    <span class="achievement-text">Uzman</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Main Content -->
         <div class="game-container">
             <div id="top-section">
@@ -163,15 +28,17 @@
                     <h1>SayıDışı</h1>
                     <div class="game-info">
                         <span id="score" class="score-display">Puan: 0</span>
-                        <span id="level" class="level-display">Zorluk: 1</span>
                     </div>
                 </div>
 
                 <div id="number-display">000000000</div>
 
-                <div id="info-bar">
-                    <span id="green-increase" class="score-animation">+1</span>
-                    <span id="red-increase" class="score-animation">-1</span>
+                <div class="stats">
+                    <div>
+                        <span id="gamesPlayed" class="score-display">🎮 0</span>
+                        <span id="highScore" class="score-display">🎯 0</span>
+                    </div>
+                    <span id="leaderboard" class="leaderboard-display">🥇 0.</span>
                 </div>
 
                 <div id="progress-bar">
