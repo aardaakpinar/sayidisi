@@ -26,8 +26,8 @@ let highScore = Number.parseInt(localStorage.getItem("highScore")) || 0;
 
 // İstatistikleri güncelle
 function updateStatistics() {
-    document.getElementById("gamesPlayed").textContent = "🎮" + gamesPlayed;
-    document.getElementById("highScore").textContent = "🎯" + highScore;
+    document.getElementById("gamesPlayed").textContent = "🎮 " + gamesPlayed;
+    document.getElementById("highScore").textContent = "🎯 " + highScore;
 }
 
 // Oyun başlat
@@ -128,15 +128,6 @@ document.addEventListener("keydown", (event) => {
         if (button) button.click();
     }
 });
-
-// Mobil için dokunma
-document.addEventListener("touchstart", () => {
-    if (!gameStarted) {
-        gameStarted = true;
-        startGame();
-        leaderboard();
-    }
-}, { once: true });
 
 
 // UID oluştur
