@@ -1,61 +1,53 @@
+// Firebase config
 const firebaseConfig = {
     apiKey: atob("QUl6YVN5Q2pGSjFyQVFmVE40Rkp2YWpYLXN6NFQ4QzA5U2tKRjdB"),
     databaseURL: atob("aHR0cHM6Ly9uYXItc2F5aWRpc2ktZGVmYXVsdC1ydGRiLmV1cm9wZS13ZXN0MS5maXJlYmFzZWRhdGFiYXNlLmFwcA"),
     projectId: atob("bmFyLXNheWlkaXNp"),
 };
-
-// Firebase başlat
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-} else {
-    firebase.app();
-}
-
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
+
 const progressBar = document.getElementById("progress");
 const scrbrd = document.getElementById("score");
-const playerName = localStorage.getItem("uid");
-
-let width = 0;
-let score = 0;
-let intervalId;
-let gameStarted = false;
-let RestrictedDigits = 2;
+let width = 0,
+    score = 0,
+    intervalId,
+    gameStarted = false;
+let RestrictedDigits = 3;
 let gamesPlayed = Number.parseInt(localStorage.getItem("gamesPlayed")) || 0;
 let highScore = Number.parseInt(localStorage.getItem("highScore")) || 0;
 
-// İstatistikleri güncelle
+// Tiles dizisi
+const tiles = [];
+
 function updateStatistics() {
-    document.getElementById("gamesPlayed").textContent = "🎮 " + gamesPlayed;
-    document.getElementById("highScore").textContent = "🎯 " + highScore;
+    document.getElementById("gamesPlayed").textContent = gamesPlayed;
+    document.getElementById("highScore").textContent = highScore;
+    scrbrd.textContent = score;
 }
 
-// Oyun başlat
 function startGame() {
     score = 0;
-    scrbrd.innerText = `Puan: ${score}`;
+    updateStatistics();
     generateNumber(RestrictedDigits);
+    width = 0;
     intervalId = setInterval(moveProgressBar, 25);
 }
 
-// Oyun bitir
 function endGame() {
     clearInterval(intervalId);
     gamesPlayed++;
-    if (score > highScore) {
-        highScore = score;
-    }
+    if (score > highScore) highScore = score;
     localStorage.setItem("gamesPlayed", gamesPlayed);
     localStorage.setItem("highScore", highScore);
     updateStatistics();
     leaderboard();
     width = 0;
     score = 0;
-    scrbrd.innerText = `Puan: ${score}`;
     gameStarted = false;
+    progressBar.style.width = "0%";
 }
 
-// İlerleme çubuğu
 function moveProgressBar() {
     if (width >= 100) {
         endGame();
@@ -65,49 +57,71 @@ function moveProgressBar() {
     }
 }
 
-// Sayı üret
 function generateNumber(count) {
-    let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  let digits = [1,2,3,4,5,6,7,8,9];
 
-    if (count < 1 || count > 4) {
-        throw new Error("Count must be between 1 and 4.");
-    }
-    
-    // For other modes, use original logic
-    const removedDigits = [];
-    for (let i = 0; i < count; i++) {
-        const randomIndex = Math.floor(Math.random() * digits.length);
-        removedDigits.push(digits.splice(randomIndex, 1)[0]);
-    }
+  // Rastgele sayı çıkar
+  for (let i = 0; i < count; i++) {
+    const idx = Math.floor(Math.random() * digits.length);
+    digits.splice(idx,1);
+  }
 
-    const addedDigits = [];
-    for (let i = 0; i < count; i++) {
-        const randomIndex = Math.floor(Math.random() * digits.length);
-        addedDigits.push(digits[randomIndex]);
-    }
-    digits = digits.concat(addedDigits);
+  // Eksik rakamları tekrar ekle
+  while(digits.length < 9) {
+    digits.push(Math.floor(Math.random()*9)+1);
+  }
 
-    for (let i = digits.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [digits[i], digits[j]] = [digits[j], digits[i]];
-    }
+  // Karıştır
+  for (let i = digits.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [digits[i], digits[j]] = [digits[j], digits[i]];
+  }
 
-    const result = digits.join("");
-    document.getElementById("number-display").innerText = result;
-    return result;
+  // Tiles’a yaz
+  tiles.forEach((tile,i)=>{
+    if(tile) tile.textContent = digits[i];
+  });
+
+  return digits.join("");
 }
 
-// Kontrol et
+function highlightChoice(number, correct) {
+    const btn = document.getElementById(number);
+    if (btn) {
+        btn.classList.add(correct ? "is-correct" : "is-absent");
+        setTimeout(() => btn.classList.remove("is-correct", "is-absent"), 600);
+    }
+}
+
 function checkNumber(number) {
-    if (gameStarted == true) {
-        const displayValue = document.getElementById("number-display").innerText;
+    let displayValue = "";
+    tiles.forEach(tile => displayValue += tile.textContent);
+
+    if (gameStarted) {
         if (!displayValue.includes(number.toString())) {
+            // Doğru seçim: tüm tiles yeşil
+            tiles.forEach(tile => tile.classList.add("correct-all"));
+
             score++;
-            scrbrd.innerText = `Puan: ${score}`;
+            scrbrd.textContent = score;
             width = 0;
-            generateNumber(RestrictedDigits);
+
+            // 600ms sonra eski haline dön ve yeni sayı üret
+            setTimeout(() => {
+                tiles.forEach(tile => tile.classList.remove("correct-all"));
+                generateNumber(RestrictedDigits);
+            }, 600);
+
         } else {
             endGame();
+
+            tiles.forEach(tile => {
+                if (tile.textContent === number.toString()) tile.classList.add("wrong");
+            });
+
+            setTimeout(() => {
+                tiles.forEach(tile => tile.classList.remove("wrong"));
+            }, 600);
         }
     } else {
         gameStarted = true;
@@ -116,7 +130,6 @@ function checkNumber(number) {
     }
 }
 
-// PC için Numpad
 document.addEventListener("keydown", (event) => {
     if (event.code.startsWith("Numpad")) {
         if (!gameStarted) {
@@ -129,8 +142,6 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-
-// UID oluştur
 function generateUID() {
     return "SAxxxxxxxyxxxxIxxx".replace(/[xy]/g, (c) => {
         var r = (Math.random() * 16) | 0,
@@ -139,7 +150,6 @@ function generateUID() {
     });
 }
 
-// Liderlik tablosu
 async function leaderboard() {
     let playerId = localStorage.getItem("uid");
     if (!playerId) {
@@ -154,19 +164,23 @@ async function leaderboard() {
         if (player.score < highScore) {
             playerRef.child(playerId).update({ score: highScore });
         }
-        const sortedPlayers = Object.keys(data)
-            .map((key) => ({ uid: key, score: data[key].score }))
+        const sorted = Object.keys(data)
+            .map((k) => ({ uid: k, score: data[k].score }))
             .sort((a, b) => b.score - a.score);
-        const playerRank = sortedPlayers.findIndex((p) => p.uid === playerId) + 1;
-        document.getElementById("leaderboard").innerText = playerRank > 0 ? playerRank + "." : "Sıralama hatası";
+        const rank = sorted.findIndex((p) => p.uid === playerId) + 1;
+        document.getElementById("leaderboard").innerText = rank > 0 ? rank + "." : "?";
     } else {
         playerRef.child(playerId).set({ score: Number(highScore) });
         document.getElementById("leaderboard").innerText = Object.keys(data).length + 1 + ".";
     }
 }
 
-// Sayfa yüklenince başlat
 document.addEventListener("DOMContentLoaded", () => {
+    for (let i = 0; i < 9; i++) {
+        const tile = document.getElementById(`tile-${i}`);
+        if (tile) tiles.push(tile);
+    }
+
     updateStatistics();
     leaderboard();
 });

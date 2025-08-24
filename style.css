@@ -1,300 +1,121 @@
-/* Modern CSS Reset and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+html,
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  color: #1f2937;
+    height: 100%;
+    background: #121213;
+    color: #d7dadc;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
 }
 
-.start-button {
-  width: 100%;
-  padding: 18px 24px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.page-wrap {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
 }
 
-.start-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px -3px rgba(16, 185, 129, 0.4);
-  background: linear-gradient(135deg, #059669, #047857);
+.game-container {
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
 }
 
-/* Game Interface */
-#top-section {
-  background: white;
-  border-radius: 24px;
-  padding: 32px 24px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  position: relative;
-  overflow: hidden;
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #3a3a3c;
+    padding-bottom: 8px;
 }
-
-.game-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.game-header h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.game-info {
-  display: flex;
-  gap: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.score-display {
-  color: #059669;
-  background: #d1fae5;
-  padding: 6px 12px;
-  border-radius: 20px;
-}
-
-.leaderboard-display {
-  color: #FFF;
-  background: linear-gradient(135deg, #f59e0b, #d97706);;
-  padding: 6px 12px;
-  border-radius: 20px;
-}
-
-#number-display {
-  font-size: 3rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 3rem;
-  color: #1f2937;
-  letter-spacing: 0.1em;
-  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
-}
-
-@media (max-width: 480px) {
-  #number-display {
-    font-size: 2.2rem;
-  }
+.brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.5rem;
 }
 
 .stats {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  font-weight: 600;
+    display: flex;
+    gap: 10px;
+    opacity: 0.9;
 }
-
-.stats div {
-  display: flex;
-  gap: 1rem;
-}
-
-#progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #f3f4f6;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-  margin-top: 1rem;
-}
-
-#progress {
-  height: 100%;
-  background: linear-gradient(90deg, #10b981, #059669);
-  border-radius: 4px;
-  width: 0;
-  transition: width 0.1s linear;
-  position: relative;
-}
-
-#progress::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* Number Pad */
-#bottom-section {
-  display: flex;
-  justify-content: center;
-}
-
-.numpad {
-  border-radius: 24px;
-  padding: 24px;
-}
-
-.button-group {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-  justify-content: center;
-}
-
-.button-group:last-child {
-  margin-bottom: 0;
-}
-
-.number-button {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: #1e293b;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.number-button:hover {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  border-color: #6366f1;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px -3px rgba(99, 102, 241, 0.3);
-}
-
-.number-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 480px) {
-  .number-button {
-    width: 70px;
-    height: 70px;
-    font-size: 1.3rem;
-  }
-
-  .numpad {
-    padding: 20px;
-  }
-}
-
-/* Score Animation */
-@keyframes scoreAnimation {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -70%) scale(1.2);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate(-50%, -90%) scale(1);
-    opacity: 0;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 640px) {
-  body {
-    padding: 16px;
-  }
-
-  .popup-content {
-    padding: 24px;
-  }
-
-  .game-header {
-    gap: 12px;
+.stats span {
+    min-width: 26px;
     text-align: center;
-  }
+    font-weight: bold;
+}
 
-  .game-info {
+#number-display {
+    position: absolute;
+    left: -9999px;
+}
+
+.tiles {
+    display: flex;
     justify-content: center;
-  }
+    gap: 8px;
+    margin: 22px 0 16px;
+}
+.tile {
+    width: 50px;
+    height: 50px;
+    transition: background-color 0.3s ease;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 2rem;
+    font-family: "Courier New", monospace;
+    user-select: none;
+}
+@media (max-width: 420px) {
+    .tile {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+}
 
-  #top-section {
-    padding: 24px 20px;
-  }
+.progress-wrap {
+    margin: 8px 0 20px;
+}
 
-  .stat-item {
-    padding: 20px 16px;
-  }
+.progress {
+    height: 10px;
+    background: #3a3a3c;
+}
+.progress-bar {
+    background: #6aaa64;
+    transition: width 0.25s ease;
+}
 
-  .tab-button {
-    padding: 10px 12px;
-    font-size: 0.9rem;
-  }
-
-  .tab-icon {
+.numpad .btn {
+    width: 60px;
+    height: 60px;
+    font-weight: 700;
     font-size: 1rem;
-  }
-
-  .achievement-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .difficulty-section,
-  .achievements-preview {
-    padding: 16px;
-  }
+    border: 2px solid #3a3a3c;
+    background: transparent;
+    color: #d7dadc;
+    margin: 6px;
+}
+.numpad .btn:hover {
+    border-color: #d7dadc;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  body {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  }
+.tile.correct-all {
+    background: #6aaa64;
+    border-color: #6aaa64;
+    color: #fff;
 }
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+.tile.wrong {
+    background: #c0392b;
+    border-color: #c0392b;
+    color: #fff;
+}
+.is-absent {
+    background: #3a3a3c;
+    border-color: #3a3a3c;
+    color: #fff;
 }
