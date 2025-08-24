@@ -131,14 +131,15 @@ function checkNumber(number) {
 }
 
 document.addEventListener("keydown", (event) => {
-    if (event.code.startsWith("Numpad")) {
-        if (!gameStarted) {
+    if(event.code.startsWith("Numpad")) {
+        if(!gameStarted){
             gameStarted = true;
             startGame();
             leaderboard();
+        } else {
+            const num = event.code.replace("Numpad", "");
+            checkNumber(num);
         }
-        const button = document.getElementById(event.key);
-        if (button) button.click();
     }
 });
 
@@ -180,6 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const tile = document.getElementById(`tile-${i}`);
         if (tile) tiles.push(tile);
     }
+
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
 
     updateStatistics();
     leaderboard();
