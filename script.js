@@ -50,7 +50,10 @@ function endGame() {
 
 function moveProgressBar() {
     if (width >= 100) {
-        endGame();
+        width = 0;
+        score--;
+        scrbrd.textContent = score;
+        generateNumber(RestrictedDigits);
     } else {
         width++;
         progressBar.style.width = width + "%";
@@ -157,22 +160,48 @@ async function leaderboard() {
         playerId = generateUID();
         localStorage.setItem("uid", playerId);
     }
+
+    playerId = playerId.trim().replace(/[.#$[\]]/g, "");
+    
     const playerRef = database.ref("leaderboard");
     const snapshot = await playerRef.once("value");
     const data = snapshot.val() || {};
+    const lb = document.getElementById("leaderboard");
+
     const player = data[playerId];
+
     if (player) {
         if (player.score < highScore) {
             playerRef.child(playerId).update({ score: highScore });
         }
+
         const sorted = Object.keys(data)
             .map((k) => ({ uid: k, score: data[k].score }))
             .sort((a, b) => b.score - a.score);
+
         const rank = sorted.findIndex((p) => p.uid === playerId) + 1;
-        document.getElementById("leaderboard").innerText = rank > 0 ? rank + "." : "?";
+        lb.innerText = rank > 0 ? rank + "." : "?";
+
+        lb.removeAttribute("gold");
+        lb.removeAttribute("silver");
+        lb.removeAttribute("bronze");
+
+        if (rank === 1) lb.setAttribute("gold", "");
+        else if (rank === 2) lb.setAttribute("silver", "");
+        else if (rank >= 3 && rank <= 5) lb.setAttribute("bronze", "");
+
     } else {
         playerRef.child(playerId).set({ score: Number(highScore) });
-        document.getElementById("leaderboard").innerText = Object.keys(data).length + 1 + ".";
+        lb.innerText = Object.keys(data).length + 1 + ".";
+
+        lb.removeAttribute("gold");
+        lb.removeAttribute("silver");
+        lb.removeAttribute("bronze");
+
+        const newRank = Object.keys(data).length + 1;
+        if (newRank === 1) lb.setAttribute("gold", "");
+        else if (newRank === 2) lb.setAttribute("silver", "");
+        else if (newRank >= 3 && newRank <= 5) lb.setAttribute("bronze", "");
     }
 }
 

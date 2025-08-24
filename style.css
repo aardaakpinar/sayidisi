@@ -27,6 +27,7 @@ body {
     border-bottom: 1px solid #3a3a3c;
     padding-bottom: 8px;
 }
+
 .brand {
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -37,17 +38,23 @@ body {
     display: flex;
     gap: 10px;
     opacity: 0.9;
+    align-items: center
 }
+
 .stats span {
     min-width: 26px;
     text-align: center;
     font-weight: bold;
 }
 
-#number-display {
-    position: absolute;
-    left: -9999px;
+#leaderboard {
+    border-radius: 8px;
+    padding: 5px;
 }
+
+#leaderboard[gold] {background: radial-gradient(ellipse farthest-corner at left top, #FFD700 0%, #FFC700 40%, #B8860B 100%);color: white;}
+#leaderboard[silver] {background: radial-gradient(ellipse farthest-corner at left top, #C0C0C0 0%, #D9D9D9 40%, #A9A9A9 100%);color: black;}
+#leaderboard[bronze] {background: radial-gradient(ellipse farthest-corner at left top, #CD7F32 0%, #D2691E 50%, #8B4513 100%);color: white;}
 
 .tiles {
     display: flex;
