@@ -27,6 +27,7 @@ function updateStatistics() {
 }
 
 function startGame() {
+    document.querySelector(".start-btn").style.display = "none";
     score = 0;
     updateStatistics();
     generateNumber(RestrictedDigits);
@@ -35,6 +36,7 @@ function startGame() {
 }
 
 function endGame() {
+    document.querySelector(".start-btn").style.display = "";
     clearInterval(intervalId);
     gamesPlayed++;
     if (score > highScore) highScore = score;

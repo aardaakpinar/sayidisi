@@ -1,22 +1,31 @@
+* {
+    user-select: none;
+}
+
 html,
 body {
     height: 100%;
+    margin: 0;
     background: #121213;
     color: #d7dadc;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
 }
 
 .page-wrap {
-    min-height: 100%;
+    height: 100vh; /* Tam ekran yükseklik */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px 12px;
+    box-sizing: border-box;
 }
 
 .game-container {
     width: 100%;
     max-width: 400px;
+    height: 100%; /* İçeriği de tam yükseklikte yapar */
+    display: flex;
+    flex-direction: column; /* Yukarıdan aşağı düzen */
 }
 
 .topbar {
@@ -48,6 +57,8 @@ body {
 }
 
 #leaderboard {
+    width: 35px;
+    height: 35px;
     border-radius: 8px;
     padding: 5px;
 }
@@ -106,8 +117,20 @@ body {
     color: #d7dadc;
     margin: 6px;
 }
+
 .numpad .btn:hover {
     border-color: #d7dadc;
+}
+
+.numpad .full-row .start-btn {
+    flex: 1; 
+    width: calc(60px * 3 + 6px * 4);
+    height: 60px;
+    font-size: 1.3rem;
+    background: #6aaa64;
+    border-color: #6aaa64;
+    color: #fff;
+    border-radius: 8px;
 }
 
 .tile.correct-all {
