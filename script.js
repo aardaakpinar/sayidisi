@@ -219,3 +219,60 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStatistics();
     leaderboard();
 });
+
+
+
+// BOT
+
+function botPlay() {
+  // Eğer oyun başlamadıysa bot başlatıyor
+  if (!gameStarted) {
+    console.log("Bot oyunu başlatıyor!");
+    gameStarted = true;
+    startGame();
+    leaderboard();
+    return; // oyun başladığında hemen tahmin etmeye başlamasın
+  }
+
+  // Bot, 100 skoru geçtiyse duracak
+  if (score >= 100) {
+    console.log("Bot hedefe ulaştı! Oyun duruyor.");
+    stopBot();
+    return;
+  }
+
+  // Tiles’ta hangi rakamlar var
+  let currentDigits = tiles.map(tile => Number(tile.textContent) || null);
+
+  // Eksik rakamları tahmin et
+  const allDigits = [1,2,3,4,5,6,7,8,9];
+
+  // %90 doğruluk (sen %50 demiştin, burada %90 deneyebiliriz)
+  const guessCorrectly = Math.random() < 0.99;
+
+  let guess;
+  if (guessCorrectly) {
+    // Doğru rakam: currentDigits’te olmayanlardan seç
+    const missingDigits = allDigits.filter(d => !currentDigits.includes(d));
+    guess = missingDigits[Math.floor(Math.random() * missingDigits.length)];
+  } else {
+    // Yanlış rakam: mevcut rakamlardan seç
+    const presentDigits = currentDigits.filter(d => d !== null);
+    guess = presentDigits[Math.floor(Math.random() * presentDigits.length)];
+  }
+
+  console.log("Bot tahmini:", guess);
+  checkNumber(guess); // mevcut oyun fonksiyonunu kullan
+}
+
+// Daha yavaş: her 1.5 saniyede bir
+let botInterval;
+function startBot() {
+  botInterval = setInterval(botPlay, 1500);
+}
+
+function stopBot() {
+  clearInterval(botInterval);
+}
+
+startBot()
