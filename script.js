@@ -63,31 +63,33 @@ function moveProgressBar() {
 }
 
 function generateNumber(count) {
-  let digits = [1,2,3,4,5,6,7,8,9];
+    let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let removed = [];
 
-  // Rastgele sayı çıkar
-  for (let i = 0; i < count; i++) {
-    const idx = Math.floor(Math.random() * digits.length);
-    digits.splice(idx,1);
-  }
+    for (let i = 0; i < count; i++) {
+        const idx = Math.floor(Math.random() * digits.length);
+        const removedDigit = digits.splice(idx, 1)[0];
+        removed.push(removedDigit);
+    }
 
-  // Eksik rakamları tekrar ekle
-  while(digits.length < 9) {
-    digits.push(Math.floor(Math.random()*9)+1);
-  }
+    while (digits.length < 9) {
+        let candidate;
+        do {
+            candidate = Math.floor(Math.random() * 9) + 1;
+        } while (removed.includes(candidate));
+        digits.push(candidate);
+    }
 
-  // Karıştır
-  for (let i = digits.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [digits[i], digits[j]] = [digits[j], digits[i]];
-  }
+    for (let i = digits.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [digits[i], digits[j]] = [digits[j], digits[i]];
+    }
 
-  // Tiles’a yaz
-  tiles.forEach((tile,i)=>{
-    if(tile) tile.textContent = digits[i];
-  });
+    tiles.forEach((tile, i) => {
+        if (tile) tile.textContent = digits[i];
+    });
 
-  return digits.join("");
+    return digits.join("");
 }
 
 function highlightChoice(number, correct) {
@@ -100,12 +102,12 @@ function highlightChoice(number, correct) {
 
 function checkNumber(number) {
     let displayValue = "";
-    tiles.forEach(tile => displayValue += tile.textContent);
+    tiles.forEach((tile) => (displayValue += tile.textContent));
 
     if (gameStarted) {
         if (!displayValue.includes(number.toString())) {
             // Doğru seçim: tüm tiles yeşil
-            tiles.forEach(tile => tile.classList.add("correct-all"));
+            tiles.forEach((tile) => tile.classList.add("correct-all"));
 
             score++;
             scrbrd.textContent = score;
@@ -113,19 +115,18 @@ function checkNumber(number) {
 
             // 600ms sonra eski haline dön ve yeni sayı üret
             setTimeout(() => {
-                tiles.forEach(tile => tile.classList.remove("correct-all"));
+                tiles.forEach((tile) => tile.classList.remove("correct-all"));
                 generateNumber(RestrictedDigits);
             }, 600);
-
         } else {
             endGame();
 
-            tiles.forEach(tile => {
+            tiles.forEach((tile) => {
                 if (tile.textContent === number.toString()) tile.classList.add("wrong");
             });
 
             setTimeout(() => {
-                tiles.forEach(tile => tile.classList.remove("wrong"));
+                tiles.forEach((tile) => tile.classList.remove("wrong"));
             }, 600);
         }
     } else {
@@ -136,8 +137,8 @@ function checkNumber(number) {
 }
 
 document.addEventListener("keydown", (event) => {
-    if(event.code.startsWith("Numpad")) {
-        if(!gameStarted){
+    if (event.code.startsWith("Numpad")) {
+        if (!gameStarted) {
             gameStarted = true;
             startGame();
             leaderboard();
@@ -164,7 +165,7 @@ async function leaderboard() {
     }
 
     playerId = playerId.trim().replace(/[.#$[\]]/g, "");
-    
+
     const playerRef = database.ref("leaderboard");
     const snapshot = await playerRef.once("value");
     const data = snapshot.val() || {};
@@ -191,7 +192,6 @@ async function leaderboard() {
         if (rank === 1) lb.setAttribute("gold", "");
         else if (rank === 2) lb.setAttribute("silver", "");
         else if (rank >= 3 && rank <= 5) lb.setAttribute("bronze", "");
-
     } else {
         playerRef.child(playerId).set({ score: Number(highScore) });
         lb.innerText = Object.keys(data).length + 1 + ".";
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+    tooltipTriggerList.map((el) => new bootstrap.Tooltip(el));
 
     updateStatistics();
     leaderboard();

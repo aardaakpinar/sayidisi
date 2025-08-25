@@ -1,5 +1,6 @@
 * {
     user-select: none;
+    box-sizing: border-box;
 }
 
 html,
@@ -12,20 +13,19 @@ body {
 }
 
 .page-wrap {
-    height: 100vh; /* Tam ekran yükseklik */
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px 12px;
-    box-sizing: border-box;
 }
 
 .game-container {
     width: 100%;
     max-width: 400px;
-    height: 100%; /* İçeriği de tam yükseklikte yapar */
+    height: 100%;
     display: flex;
-    flex-direction: column; /* Yukarıdan aşağı düzen */
+    flex-direction: column;
 }
 
 .topbar {
@@ -47,7 +47,7 @@ body {
     display: flex;
     gap: 10px;
     opacity: 0.9;
-    align-items: center
+    align-items: center;
 }
 
 .stats span {
@@ -61,17 +61,35 @@ body {
     height: 35px;
     border-radius: 8px;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#leaderboard[gold] {background: radial-gradient(ellipse farthest-corner at left top, #FFD700 0%, #FFC700 40%, #B8860B 100%);color: white;}
-#leaderboard[silver] {background: radial-gradient(ellipse farthest-corner at left top, #C0C0C0 0%, #D9D9D9 40%, #A9A9A9 100%);color: black;}
-#leaderboard[bronze] {background: radial-gradient(ellipse farthest-corner at left top, #CD7F32 0%, #D2691E 50%, #8B4513 100%);color: white;}
+#leaderboard[gold] {
+    background: radial-gradient(ellipse farthest-corner at left top, #FFD700 0%, #FFC700 40%, #B8860B 100%);
+    color: white;
+}
+#leaderboard[silver] {
+    background: radial-gradient(ellipse farthest-corner at left top, #C0C0C0 0%, #D9D9D9 40%, #A9A9A9 100%);
+    color: black;
+}
+#leaderboard[bronze] {
+    background: radial-gradient(ellipse farthest-corner at left top, #CD7F32 0%, #D2691E 50%, #8B4513 100%);
+    color: white;
+}
 
 .tiles {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 8px;
     margin: 22px 0 16px;
+}
+
+.tiles .row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
 
 .tile {
@@ -86,12 +104,6 @@ body {
     font-weight: 800;
     font-size: 2.2rem;
     font-family: "Courier New", monospace;
-    user-select: none;
-}
-
-.tiles div.d-flex {
-    justify-content: center;
-    gap: 8px;
 }
 
 .progress-wrap {
@@ -99,12 +111,31 @@ body {
 }
 
 .progress {
+    width: 100%;
     height: 10px;
     background: #3a3a3c;
+    border-radius: 5px;
+    overflow: hidden;
 }
+
 .progress-bar {
+    height: 100%;
+    width: 0%;
     background: #6aaa64;
     transition: width 0.25s ease;
+}
+
+.numpad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.numpad .row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
 }
 
 .numpad .btn {
@@ -115,7 +146,9 @@ body {
     border: 2px solid #3a3a3c;
     background: transparent;
     color: #d7dadc;
-    margin: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
 }
 
 .numpad .btn:hover {
@@ -123,7 +156,7 @@ body {
 }
 
 .numpad .full-row .start-btn {
-    flex: 1; 
+    flex: 1;
     width: calc(60px * 3 + 6px * 4);
     height: 60px;
     font-size: 1.3rem;
@@ -138,13 +171,9 @@ body {
     border-color: #6aaa64;
     color: #fff;
 }
+
 .tile.wrong {
     background: #c0392b;
     border-color: #c0392b;
-    color: #fff;
-}
-.is-absent {
-    background: #3a3a3c;
-    border-color: #3a3a3c;
     color: #fff;
 }
