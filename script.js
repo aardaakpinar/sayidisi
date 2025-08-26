@@ -21,13 +21,11 @@ let highScore = Number.parseInt(localStorage.getItem("highScore")) || 0;
 const tiles = [];
 
 function updateStatistics() {
-    document.getElementById("gamesPlayed").textContent = gamesPlayed;
     document.getElementById("highScore").textContent = highScore;
     scrbrd.textContent = score;
 }
 
 function startGame() {
-    document.querySelector(".start-btn").style.display = "none";
     score = 0;
     updateStatistics();
     generateNumber(RestrictedDigits);
@@ -36,7 +34,6 @@ function startGame() {
 }
 
 function endGame() {
-    document.querySelector(".start-btn").style.display = "";
     clearInterval(intervalId);
     gamesPlayed++;
     if (score > highScore) highScore = score;
@@ -138,13 +135,15 @@ function checkNumber(number) {
 
 document.addEventListener("keydown", (event) => {
     if (event.code.startsWith("Numpad")) {
-        if (!gameStarted) {
-            gameStarted = true;
-            startGame();
-            leaderboard();
-        } else {
-            const num = event.code.replace("Numpad", "");
-            checkNumber(num);
+        const num = event.code.slice(6);
+        if (!isNaN(num) && num.length === 1 && num !== "0") {
+            if (!gameStarted) {
+                gameStarted = true;
+                startGame();
+                leaderboard();
+            } else {
+                checkNumber(num);
+            }
         }
     }
 });
@@ -218,4 +217,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateStatistics();
     leaderboard();
+});
+
+
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
+const closeBtn = modal.querySelector(".close-btn");
+
+document.getElementById("info").addEventListener("click", () => {
+  modalBody.innerHTML = `
+    <h2>Nasıl Oynanır?</h2>
+    <ul class="rules">
+        <li>Oyunun ekranı ikiye ayrılır. <b>Üst tarafta</b> rastgele üretilmiş sayı görünür.</li>
+        <li><b>Amacınız</b> bu sayıda <u>olmayan</u> rakamı bulmaktır.</li>
+        <li>Bulduğunuz rakamı verilen süre içinde 
+        <b>Alt taraftaki Klavye</b> veya <b>Numpad</b> kullanarak işaretleyin.</li>
+    </ul>
+
+    <h2>Menüde ki sayılar ne?</h2>
+    <span>Orda oyun hakkında bilgiler yazmaktadır. Sırayla:</span>
+    <ul>
+        <li>Mevcut puanın</li>
+        <li>Oynadığın oyun sayısı</li>
+        <li>Genel sıralaman</li>
+    </ul>
+    `;
+  modal.classList.remove("hidden");
+});
+
+closeBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
 });

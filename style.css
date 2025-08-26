@@ -13,16 +13,16 @@ body {
 }
 
 .page-wrap {
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px 12px;
+    padding: 12px;
 }
 
 .game-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 480px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -43,17 +43,18 @@ body {
     font-size: 1.5rem;
 }
 
-.stats {
+.menu {
     display: flex;
     gap: 10px;
     opacity: 0.9;
     align-items: center;
 }
 
-.stats span {
-    min-width: 26px;
+.menu span {
+    display: flex;
     text-align: center;
     font-weight: bold;
+    align-items: center;
 }
 
 #leaderboard {
@@ -64,6 +65,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #8e8e93;
 }
 
 #leaderboard[gold] {
@@ -79,22 +81,56 @@ body {
     color: white;
 }
 
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #1c1c1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.close-btn {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .tiles {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin: 22px 0 16px;
+    gap: 1vh;
+    margin: 2vh 0;
 }
 
 .tiles .row {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 1.2vw;
 }
 
 .tile {
-    width: 60px;
-    height: 60px;
+    width: 18vw;
+    height: 18vw;
+    max-width: 70px;
+    max-height: 70px;
+    font-size: 2rem;
     transition: background-color 0.3s ease;
     border: 2px solid #3a3a3c;
     border-radius: 0.375rem;
@@ -102,17 +138,28 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    font-size: 2.2rem;
     font-family: "Courier New", monospace;
 }
 
+.tile.correct-all {
+    background: #6aaa64;
+    border-color: #6aaa64;
+    color: #fff;
+}
+
+.tile.wrong {
+    background: #c0392b;
+    border-color: #c0392b;
+    color: #fff;
+}
+
 .progress-wrap {
-    margin: 8px 0 20px;
+    margin: 1vh 0 2vh;
 }
 
 .progress {
     width: 100%;
-    height: 10px;
+    height: 1.2vh;
     background: #3a3a3c;
     border-radius: 5px;
     overflow: hidden;
@@ -126,54 +173,37 @@ body {
 }
 
 .numpad {
+    height: 100%;
+    max-height: 500px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 1vh;
 }
 
 .numpad .row {
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: 1.2vw;
 }
 
 .numpad .btn {
-    width: 60px;
-    height: 60px;
-    font-weight: 700;
-    font-size: 1rem;
+    width: 18vw;
+    height: 18vw;
+    max-width: 70px;
+    max-height: 70px;
+    font-size: 2rem;
+    font-weight: 8-700;
     border: 2px solid #3a3a3c;
     background: transparent;
     color: #d7dadc;
     border-radius: 8px;
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
+    font-family: "Courier New", monospace;
 }
 
 .numpad .btn:hover {
     border-color: #d7dadc;
-}
-
-.numpad .full-row .start-btn {
-    flex: 1;
-    width: calc(60px * 3 + 6px * 4);
-    height: 60px;
-    font-size: 1.3rem;
-    background: #6aaa64;
-    border-color: #6aaa64;
-    color: #fff;
-    border-radius: 8px;
-}
-
-.tile.correct-all {
-    background: #6aaa64;
-    border-color: #6aaa64;
-    color: #fff;
-}
-
-.tile.wrong {
-    background: #c0392b;
-    border-color: #c0392b;
-    color: #fff;
 }

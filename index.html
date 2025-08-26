@@ -27,24 +27,35 @@
                 <div class="game-container">
                     <div class="topbar">
                         <div class="brand">SayıDışı</div>
-                        <div class="stats">
-                            <span id="score" title="Mevcut puanınız">0</span>
-                            <span id="highScore" title="En yüksek skorunuz">0</span>
-                            <span id="gamesPlayed" title="Oynadığınız oyun sayısı">0</span>
-                            <span id="leaderboard" title="Sizin sıralamanız">0.</span>
+                        <div class="menu">
+                            <span id="score" title="Mevcut puanın">0</span>/
+                            <span id="highScore" title="Oynadığın oyun sayısı">0</span>
+                            <span id="leaderboard" title="Genel sıralaman">0.</span>
+                            <span id="info" title="Nasıl oynanır?">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9H12.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
                         </div>
                     </div>
+
+                    <div id="modal" class="modal hidden">
+                        <div class="modal-content">
+                            <span class="close-btn">&times;</span>
+                            <div id="modal-body"></div>
+                        </div>
+                    </div>  
 
                     <div class="tiles" id="tiles">
                         <div class="row">
                             <div class="tile" id="tile-0">0</div>
                             <div class="tile" id="tile-1">0</div>
                             <div class="tile" id="tile-2">0</div>
-                            <div class="tile" id="tile-3">0</div>
-                            <div class="tile" id="tile-4">0</div>
                         </div>
                         <div class="row">
+                            <div class="tile" id="tile-3">0</div>
+                            <div class="tile" id="tile-4">0</div>
                             <div class="tile" id="tile-5">0</div>
+                        </div>
+                        <div class="row">
                             <div class="tile" id="tile-6">0</div>
                             <div class="tile" id="tile-7">0</div>
                             <div class="tile" id="tile-8">0</div>
@@ -72,9 +83,6 @@
                             <button class="btn" onclick="checkNumber(1)">1</button>
                             <button class="btn" onclick="checkNumber(2)">2</button>
                             <button class="btn" onclick="checkNumber(3)">3</button>
-                        </div>
-                        <div class="row full-row">
-                            <button class="btn start-btn" onclick="gameStarted = true; startGame(); leaderboard();">Başla</button>
                         </div>
                     </div>
                 </div>
