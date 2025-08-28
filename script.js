@@ -7,6 +7,25 @@ const firebaseConfig = {
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+firebase.auth().signInAnonymously()
+    .then(() => {
+      console.log("Anonim giriş başarılı!");
+    })
+    .catch((error) => {
+      console.error("Hata:", error.code, error.message);
+    });
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        const isAnonymous = user.isAnonymous;
+        const uid = user.uid;
+        localStorage.setItem("uid", uid);
+        console.log("Giriş yapıldı. UID:", uid, "Anonim:", isAnonymous);
+    } else {
+        console.log("Henüz giriş yapılmadı.");
+    }
+});
+
 const progressBar = document.getElementById("progress");
 const scrbrd = document.getElementById("score");
 let width = 0,
@@ -148,20 +167,8 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-function generateUID() {
-    return "SAxxxxxxxyxxxxIxxx".replace(/[xy]/g, (c) => {
-        var r = (Math.random() * 16) | 0,
-            v = c === "x" ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
-
 async function leaderboard() {
     let playerId = localStorage.getItem("uid");
-    if (!playerId) {
-        playerId = generateUID();
-        localStorage.setItem("uid", playerId);
-    }
 
     playerId = playerId.trim().replace(/[.#$[\]]/g, "");
 
