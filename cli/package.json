@@ -1,0 +1,16 @@
+{
+  "name": "sayidisi",
+  "version": "1.0.0",
+  "description": "9 haneli sayıda bulunmayan bir rakamı seç!",
+  "main": "main.js",
+  "inh": true,
+  "scripts": {
+    "test": "node main.js"
+  },
+  "keywords": [
+    "number",
+    "game",
+    "sayidisi"
+  ],
+  "author": "aardaakpinar"
+}
