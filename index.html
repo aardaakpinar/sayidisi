@@ -26,7 +26,7 @@
         <body>
             <div class="page-wrap">
                 <div class="game-container">
-                    <div class="topbar">
+                    <div class="topbar" id="leaderboardColor">
                         <div class="brand">SayıDışı</div>
                         <div class="menu">
                             <span id="score" title="Mevcut puanın">0</span>/
@@ -37,53 +37,54 @@
                             </span>
                         </div>
                     </div>
+                    <div class="game-grid">
+                        <div id="modal" class="modal hidden">
+                            <div class="modal-content">
+                                <span class="close-btn">&times;</span>
+                                <div id="modal-body"></div>
+                            </div>
+                        </div>  
 
-                    <div id="modal" class="modal hidden">
-                        <div class="modal-content">
-                            <span class="close-btn">&times;</span>
-                            <div id="modal-body"></div>
+                        <div class="tiles" id="tiles">
+                            <div class="row">
+                                <div class="tile" id="tile-0">0</div>
+                                <div class="tile" id="tile-1">0</div>
+                                <div class="tile" id="tile-2">0</div>
+                            </div>
+                            <div class="row">
+                                <div class="tile" id="tile-3">0</div>
+                                <div class="tile" id="tile-4">0</div>
+                                <div class="tile" id="tile-5">0</div>
+                            </div>
+                            <div class="row">
+                                <div class="tile" id="tile-6">0</div>
+                                <div class="tile" id="tile-7">0</div>
+                                <div class="tile" id="tile-8">0</div>
+                            </div>
                         </div>
-                    </div>  
 
-                    <div class="tiles" id="tiles">
-                        <div class="row">
-                            <div class="tile" id="tile-0">0</div>
-                            <div class="tile" id="tile-1">0</div>
-                            <div class="tile" id="tile-2">0</div>
+                        <div class="progress-wrap">
+                            <div class="progress">
+                                <div id="progress" class="progress-bar"></div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="tile" id="tile-3">0</div>
-                            <div class="tile" id="tile-4">0</div>
-                            <div class="tile" id="tile-5">0</div>
-                        </div>
-                        <div class="row">
-                            <div class="tile" id="tile-6">0</div>
-                            <div class="tile" id="tile-7">0</div>
-                            <div class="tile" id="tile-8">0</div>
-                        </div>
-                    </div>
 
-                    <div class="progress-wrap">
-                        <div class="progress">
-                            <div id="progress" class="progress-bar"></div>
-                        </div>
-                    </div>
-
-                    <div class="numpad">
-                        <div class="row">
-                            <button class="btn" onclick="checkNumber(7)">7</button>
-                            <button class="btn" onclick="checkNumber(8)">8</button>
-                            <button class="btn" onclick="checkNumber(9)">9</button>
-                        </div>
-                        <div class="row">
-                            <button class="btn" onclick="checkNumber(4)">4</button>
-                            <button class="btn" onclick="checkNumber(5)">5</button>
-                            <button class="btn" onclick="checkNumber(6)">6</button>
-                        </div>
-                        <div class="row">
-                            <button class="btn" onclick="checkNumber(1)">1</button>
-                            <button class="btn" onclick="checkNumber(2)">2</button>
-                            <button class="btn" onclick="checkNumber(3)">3</button>
+                        <div class="numpad">
+                            <div class="row">
+                                <button class="btn" onclick="checkNumber(7)">7</button>
+                                <button class="btn" onclick="checkNumber(8)">8</button>
+                                <button class="btn" onclick="checkNumber(9)">9</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn" onclick="checkNumber(4)">4</button>
+                                <button class="btn" onclick="checkNumber(5)">5</button>
+                                <button class="btn" onclick="checkNumber(6)">6</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn" onclick="checkNumber(1)">1</button>
+                                <button class="btn" onclick="checkNumber(2)">2</button>
+                                <button class="btn" onclick="checkNumber(3)">3</button>
+                            </div>
                         </div>
                     </div>
                 </div>

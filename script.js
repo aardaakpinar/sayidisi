@@ -176,6 +176,7 @@ async function leaderboard() {
     const snapshot = await playerRef.once("value");
     const data = snapshot.val() || {};
     const lb = document.getElementById("leaderboard");
+    const lbc = document.getElementById("leaderboardColor");
 
     const player = data[playerId];
 
@@ -191,25 +192,25 @@ async function leaderboard() {
         const rank = sorted.findIndex((p) => p.uid === playerId) + 1;
         lb.innerText = rank > 0 ? rank + "." : "?";
 
-        lb.removeAttribute("gold");
-        lb.removeAttribute("silver");
-        lb.removeAttribute("bronze");
+        lbc.removeAttribute("gold");
+        lbc.removeAttribute("silver");
+        lbc.removeAttribute("bronze");
 
-        if (rank === 1) lb.setAttribute("gold", "");
-        else if (rank === 2) lb.setAttribute("silver", "");
-        else if (rank >= 3 && rank <= 5) lb.setAttribute("bronze", "");
+        if (rank === 1) lbc.setAttribute("gold", "");
+        else if (rank === 2) lbc.setAttribute("silver", "");
+        else if (rank >= 3 && rank <= 5) lbc.setAttribute("bronze", "");
     } else {
         playerRef.child(playerId).set({ score: Number(highScore) });
         lb.innerText = Object.keys(data).length + 1 + ".";
 
-        lb.removeAttribute("gold");
-        lb.removeAttribute("silver");
-        lb.removeAttribute("bronze");
+        lbc.removeAttribute("gold");
+        lbc.removeAttribute("silver");
+        lbc.removeAttribute("bronze");
 
         const newRank = Object.keys(data).length + 1;
-        if (newRank === 1) lb.setAttribute("gold", "");
-        else if (newRank === 2) lb.setAttribute("silver", "");
-        else if (newRank >= 3 && newRank <= 5) lb.setAttribute("bronze", "");
+        if (newRank === 1) lbc.setAttribute("gold", "");
+        else if (newRank === 2) lbc.setAttribute("silver", "");
+        else if (newRank >= 3 && newRank <= 5) lbc.setAttribute("bronze", "");
     }
 }
 
@@ -245,7 +246,7 @@ document.getElementById("info").addEventListener("click", () => {
     <span>Orda oyun hakkında bilgiler yazmaktadır. Sırayla:</span>
     <ul>
         <li>Mevcut puanın</li>
-        <li>Oynadığın oyun sayısı</li>
+        <li>En yüksek puanın</li>
         <li>Genel sıralaman</li>
     </ul>
     `;
