@@ -1,12 +1,13 @@
-const CACHE_NAME = "sayidisi-v1";
+const CACHE_NAME = "sayidisi-v2";
+const BASE_PATH = "/sayidisi";
+
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/assets/bundle/min.css",
-  "/assets/bundle/min.js", 
-  "/manifest.json",
-  "/assets/icons/icon-192.png",
-  "/assets/icons/icon-512.png"
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/manifest.json`,
+  `${BASE_PATH}/assets/bundle.js`,
+  `${BASE_PATH}/assets/icons/icon-192.png`,
+  `${BASE_PATH}/assets/icons/icon-512.png`
 ];
 
 // Service Worker yüklenince
