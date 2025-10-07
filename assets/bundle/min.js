@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register("/service-worker.js")
+      .register("/sayidisi/service-worker.js")
       .then((reg) => console.log("Service Worker kayıtlı:", reg.scope))
       .catch((err) => console.error("SW hatası:", err));
   });
