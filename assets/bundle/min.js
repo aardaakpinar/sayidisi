@@ -1,3 +1,12 @@
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((reg) => console.log("Service Worker kayıtlı:", reg.scope))
+      .catch((err) => console.error("SW hatası:", err));
+  });
+}
+
 // Firebase config
 const firebaseConfig = {
     apiKey: atob("QUl6YVN5Q2pGSjFyQVFmVE40Rkp2YWpYLXN6NFQ4QzA5U2tKRjdB"),
@@ -168,6 +177,11 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function leaderboard() {
+    if (!navigator.onLine) {
+        console.log("Offline mod: leaderboard güncellenemedi");
+        return;
+    }
+
     let playerId = localStorage.getItem("uid");
 
     playerId = playerId.trim().replace(/[.#$[\]]/g, "");
