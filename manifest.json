@@ -1,19 +1,19 @@
 {
   "name": "Sayıdışı",
   "short_name": "Sayıdışı",
-  "start_url": "/index.html",
-  "scope": "/",
+  "start_url": "/sayidisi/index.html",
+  "scope": "/sayidisi/",
   "display": "standalone",
   "background_color": "#181818",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "/assets/icons/icon-192.png",
+      "src": "/sayidisi/assets/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/assets/icons/icon-512.png",
+      "src": "/sayidisi/assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
