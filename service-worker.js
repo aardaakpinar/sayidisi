@@ -1,11 +1,11 @@
-const CACHE_NAME = "sayidisi-v2";
+const CACHE_NAME = "sayidisi";
 const BASE_PATH = "/sayidisi";
 
 const ASSETS = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/index.html`,
   `${BASE_PATH}/manifest.json`,
-  `${BASE_PATH}/assets/bundle.js`,
+  `${BASE_PATH}/assets/script.js`,
   `${BASE_PATH}/assets/icons/icon-192.png`,
   `${BASE_PATH}/assets/icons/icon-512.png`
 ];

@@ -1,102 +1,137 @@
 <!DOCTYPE html>
 <html lang="tr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-        <meta name="theme-color" content="#6366f1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?">
+    <meta name="theme-color" content="#6366f1">
+    <title>SayıDışı</title>
 
-        <!-- Open Graph (paylaşım için) -->
-        <meta property="og:title" content="SayıDışı" />
-        <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?" />
-        <meta property="og:image" content="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png" />
-        <link rel="shortcut icon" type="image/png" href="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png" />
-        <link rel="manifest" href="manifest.json">
-        <meta name="theme-color" content="#0078ff">
+    <!-- Open Graph (paylaşım için) -->
+    <meta property="og:title" content="SayıDışı">
+    <meta property="og:description" content="9 haneli sayıdan olmayan rakamı bulabilir misin?">
+    <meta property="og:image" content="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png">
+    <link rel="shortcut icon" type="image/png" href="https://aardaakpinar.github.io/assets/images/logos/sayidisi.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0078ff">
 
-        <!-- iOS için -->
-        <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <!-- Fonts & Styles -->
-        <link rel="stylesheet" href="assets/bundle/min.css" />
+    <!-- iOS için -->
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <title>SayıDışı</title>
-
-        <!-- Firebase -->
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
-    </head>
-    <body>
-        <body>
-            <div class="page-wrap">
-                <div class="game-container">
-                    <div class="topbar" id="leaderboardColor">
-                        <div class="brand">SayıDışı</div>
-                        <div class="menu">
-                            <span id="score" title="Mevcut puanın">0</span>/
-                            <span id="highScore" title="Oynadığın oyun sayısı">0</span>
-                            <span id="leaderboard" title="Genel sıralaman">0.</span>
-                            <span id="info" title="Nasıl oynanır?">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.5V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9H12.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="game-grid">
-                        <div id="modal" class="modal hidden">
-                            <div class="modal-content">
-                                <span class="close-btn">&times;</span>
-                                <div id="modal-body"></div>
-                            </div>
-                        </div>  
-
-                        <div class="tiles" id="tiles">
-                            <div class="row">
-                                <div class="tile" id="tile-0">0</div>
-                                <div class="tile" id="tile-1">0</div>
-                                <div class="tile" id="tile-2">0</div>
-                            </div>
-                            <div class="row">
-                                <div class="tile" id="tile-3">0</div>
-                                <div class="tile" id="tile-4">0</div>
-                                <div class="tile" id="tile-5">0</div>
-                            </div>
-                            <div class="row">
-                                <div class="tile" id="tile-6">0</div>
-                                <div class="tile" id="tile-7">0</div>
-                                <div class="tile" id="tile-8">0</div>
-                            </div>
-                        </div>
-
-                        <div class="progress-wrap">
-                            <div class="progress">
-                                <div id="progress" class="progress-bar"></div>
-                            </div>
-                        </div>
-
-                        <div class="numpad">
-                            <div class="row">
-                                <button class="btn" onclick="checkNumber(7)">7</button>
-                                <button class="btn" onclick="checkNumber(8)">8</button>
-                                <button class="btn" onclick="checkNumber(9)">9</button>
-                            </div>
-                            <div class="row">
-                                <button class="btn" onclick="checkNumber(4)">4</button>
-                                <button class="btn" onclick="checkNumber(5)">5</button>
-                                <button class="btn" onclick="checkNumber(6)">6</button>
-                            </div>
-                            <div class="row">
-                                <button class="btn" onclick="checkNumber(1)">1</button>
-                                <button class="btn" onclick="checkNumber(2)">2</button>
-                                <button class="btn" onclick="checkNumber(3)">3</button>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Tailwind CSS CDN -->
+     <link rel="stylesheet" href="assets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/tailwind.config.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="w-full border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
+        <div class="max-w-lg mx-auto py-3 flex items-center justify-between px-6 sm:px-0">
+            <!-- Title -->
+            <div class="flex items-center gap-3">
+                <div class="block">
+                    <h1 class="text-lg font-bold tracking-tight">SayıDışı</h1>
+                    <p class="text-xs text-gray-500">Eksik Rakamı Bul</p>
                 </div>
             </div>
+            
+            <!-- Stats in Header -->
+            <div class="flex items-center gap-4 sm:gap-6">
+                <!-- Score -->
+                <div class="text-center">
+                    <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">Puan</p>
+                    <p id="score" class="text-xl sm:text-2xl font-bold font-mono text-white">0</p>
+                </div>
+                
+                <!-- High Score -->
+                <div class="text-center">
+                    <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">En Yüksek</p>
+                    <p id="highScore" class="text-xl sm:text-2xl font-bold font-mono text-primary">0</p>
+                </div>
+                <button id="info" class="w-10 h-10 rounded-xl border border-border bg-surface-light hover:bg-border transition-colors flex items-center justify-center group">
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
 
-            <script src="assets/bundle/min.js"></script>
-            <script async="" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-        </body>
-    </body>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 gap-8">
+
+        <!-- Number Display (Tiles) -->
+        <div class="w-full max-w-lg">
+            <div class="bg-surface border border-border rounded-3xl p-6">
+                <p class="text-center text-xs text-gray-500 uppercase tracking-wider mb-4">Sayıda Olmayan Rakamı Bul</p>
+                <div class="grid grid-cols-9 gap-2">
+                    <div id="tile-0" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-1" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-2" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-3" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-4" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-5" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-6" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-7" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                    <div id="tile-8" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full max-w-lg">
+            <div class="h-3 bg-surface-light rounded-full overflow-hidden border border-border">
+                <div id="progress" class="h-full bg-gradient-to-r from-primary to-primary-dark rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Number Buttons -->
+        <div class="w-full max-w-lg">
+            <div class="grid grid-cols-3 gap-3">
+                <button id="1" onclick="checkNumber(1)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">1</button>
+                <button id="2" onclick="checkNumber(2)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">2</button>
+                <button id="3" onclick="checkNumber(3)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">3</button>
+                <button id="4" onclick="checkNumber(4)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">4</button>
+                <button id="5" onclick="checkNumber(5)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">5</button>
+                <button id="6" onclick="checkNumber(6)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">6</button>
+                <button id="7" onclick="checkNumber(7)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">7</button>
+                <button id="8" onclick="checkNumber(8)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">8</button>
+                <button id="9" onclick="checkNumber(9)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">9</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer --> 
+    <footer class="w-full border-t border-border bg-surface/50 py-4"> 
+        <div class="max-w-2xl mx-auto px-4 text-center"> 
+            <p class="text-xs text-gray-600">Numpad veya ekrandaki butonları kullanarak oyna</p> 
+        </div> 
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
+        <div class="modal-content bg-surface border border-border rounded-3xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div class="sticky top-0 bg-surface border-b border-border px-6 py-4 flex items-center justify-between rounded-t-3xl">
+                <h2 class="text-lg font-bold">Nasıl Oynanır?</h2>
+                <button class="close-btn w-8 h-8 rounded-lg bg-surface-light border border-border hover:bg-border transition-colors flex items-center justify-center">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-body" class="p-6 text-gray-300 space-y-6">
+                <!-- Content will be inserted by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Script -->
+    <script src="assets/script.js"></script>
+</body>
 </html>
