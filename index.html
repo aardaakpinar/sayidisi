@@ -24,108 +24,101 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/tailwind.config.js"></script>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts - Neo-Brutal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-background min-h-screen flex flex-col">
     <!-- Header -->
-    <header class="w-full border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
-        <div class="max-w-lg mx-auto py-3 flex items-center justify-between px-6 sm:px-0">
-            <!-- Title -->
-            <div class="flex items-center gap-3">
-                <div class="block">
-                    <h1 class="text-lg font-bold tracking-tight">SayıDışı</h1>
-                    <p class="text-xs text-gray-500">Eksik Rakamı Bul</p>
-                </div>
-            </div>
-            
-            <!-- Stats in Header -->
-            <div class="flex items-center gap-4 sm:gap-6">
-                <!-- Score -->
-                <div class="text-center">
-                    <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">Puan</p>
-                    <p id="score" class="text-xl sm:text-2xl font-bold font-mono text-white">0</p>
+    <header class="w-full bg-black border-b-4 border-white sticky top-0 z-40">
+        <div class="max-w-2xl mx-auto py-4 px-6">
+            <div class="flex items-center justify-between">
+                <!-- Title - Neo-Brutal -->
+                <div>
+                    <h1 class="text-5xl font-black tracking-tighter" style="font-family: 'Bebas Neue', sans-serif; letter-spacing: -2px;">SAYIDIŞI</h1>
+                    <p class="text-xs font-bold uppercase tracking-widest mt-1">Eksik Rakamı Bul</p>
                 </div>
                 
-                <!-- High Score -->
-                <div class="text-center">
-                    <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">En Yüksek</p>
-                    <p id="highScore" class="text-xl sm:text-2xl font-bold font-mono text-primary">0</p>
+                <!-- Stats -->
+                <div class="flex gap-6">
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold uppercase tracking-widest mb-1">Puan</p>
+                        <p id="score" class="text-3xl font-black font-mono">0</p>
+                    </div>
+                    <div class="text-right border-l-4 border-white pl-6">
+                        <p class="text-[10px] font-bold uppercase tracking-widest mb-1">En Yüksek</p>
+                        <p id="highScore" class="text-3xl font-black font-mono text-yellow-300">0</p>
+                    </div>
+                    <button id="info" class="w-12 h-12 bg-white border-3 border-black hover:bg-yellow-300 transition-all font-bold text-black flex items-center justify-center transform hover:scale-110 active:scale-95">
+                        ?
+                    </button>
                 </div>
-                <button id="info" class="w-10 h-10 rounded-xl border border-border bg-surface-light hover:bg-border transition-colors flex items-center justify-center group">
-                    <svg class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 gap-8">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-12 gap-12 bg-gradient-to-b from-black to-gray-900">
 
-        <!-- Number Display (Tiles) -->
-        <div class="w-full max-w-lg">
-            <div class="bg-surface border border-border rounded-3xl p-6">
-                <p class="text-center text-xs text-gray-500 uppercase tracking-wider mb-4">Sayıda Olmayan Rakamı Bul</p>
-                <div class="grid grid-cols-9 gap-2">
-                    <div id="tile-0" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-1" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-2" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-3" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-4" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-5" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-6" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-7" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
-                    <div id="tile-8" class="tile aspect-square bg-surface-light border border-border rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold font-mono text-white">-</div>
+        <!-- Number Display (Tiles) - Neo-Brutal -->
+        <div class="w-full max-w-2xl">
+            <div class="bg-white border-4 border-black p-8">
+                <p class="text-black font-bold uppercase tracking-widest text-sm mb-6">Sayıda Olmayan Rakamı Bul</p>
+                <div class="grid grid-cols-9 gap-3">
+                    <div id="tile-0" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-1" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-2" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-3" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-4" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-5" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-6" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-7" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
+                    <div id="tile-8" class="tile aspect-square bg-black border-4 border-black flex items-center justify-center text-4xl font-black font-mono text-white hover:bg-white hover:text-black transition-all">-</div>
                 </div>
             </div>
         </div>
 
-        <!-- Progress Bar -->
-        <div class="w-full max-w-lg">
-            <div class="h-3 bg-surface-light rounded-full overflow-hidden border border-border">
-                <div id="progress" class="h-full bg-gradient-to-r from-primary to-primary-dark rounded-full" style="width: 0%"></div>
+        <!-- Progress Bar - Brutal -->
+        <div class="w-full max-w-2xl">
+            <div class="h-6 bg-black border-3 border-white overflow-hidden">
+                <div id="progress" class="h-full bg-yellow-300" style="width: 0%; transition: width 0.03s linear;"></div>
             </div>
         </div>
 
-        <!-- Number Buttons -->
-        <div class="w-full max-w-lg">
-            <div class="grid grid-cols-3 gap-3">
-                <button id="7" onclick="checkNumber(7)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">7</button>
-                <button id="8" onclick="checkNumber(8)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">8</button>
-                <button id="9" onclick="checkNumber(9)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">9</button>
-                <button id="4" onclick="checkNumber(4)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">4</button>
-                <button id="5" onclick="checkNumber(5)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">5</button>
-                <button id="6" onclick="checkNumber(6)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">6</button>
-                <button id="1" onclick="checkNumber(1)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">1</button>
-                <button id="2" onclick="checkNumber(2)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">2</button>
-                <button id="3" onclick="checkNumber(3)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">3</button>
+        <!-- Number Buttons - Neo-Brutal Grid -->
+        <div class="w-full max-w-2xl">
+            <div class="grid grid-cols-3 gap-4">
+                <button id="7" onclick="checkNumber(7)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">7</button>
+                <button id="8" onclick="checkNumber(8)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">8</button>
+                <button id="9" onclick="checkNumber(9)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">9</button>
+                <button id="4" onclick="checkNumber(4)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">4</button>
+                <button id="5" onclick="checkNumber(5)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">5</button>
+                <button id="6" onclick="checkNumber(6)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">6</button>
+                <button id="1" onclick="checkNumber(1)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">1</button>
+                <button id="2" onclick="checkNumber(2)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">2</button>
+                <button id="3" onclick="checkNumber(3)" class="num-btn h-20 bg-white border-4 border-black text-3xl font-black font-mono text-black hover:bg-yellow-300 hover:border-yellow-600 active:translate-y-1 transition-all transform">3</button>
             </div>
         </div>
     </main>
 
     <!-- Footer --> 
-    <footer class="w-full border-t border-border bg-surface/50 py-4"> 
+    <footer class="w-full bg-black border-t-4 border-white py-6"> 
         <div class="max-w-2xl mx-auto px-4 text-center"> 
-            <p class="text-xs text-gray-600">Numpad veya ekrandaki butonları kullanarak oyna</p> 
+            <p class="text-white font-bold uppercase tracking-widest text-xs">Numpad veya Butonları Kullanarak Oyna</p> 
         </div> 
     </footer>
 
     <!-- Modal -->
-    <div id="modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-        <div class="modal-content bg-surface border border-border rounded-3xl max-w-md w-full max-h-[80vh] overflow-y-auto">
-            <div class="sticky top-0 bg-surface border-b border-border px-6 py-4 flex items-center justify-between rounded-t-3xl">
-                <h2 class="text-lg font-bold">Nasıl Oynanır?</h2>
-                <button class="close-btn w-8 h-8 rounded-lg bg-surface-light border border-border hover:bg-border transition-colors flex items-center justify-center">
-                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+    <div id="modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
+        <div class="modal-content bg-white border-4 border-black max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b-4 border-black px-6 py-4 flex items-center justify-between">
+                <h2 class="text-2xl text-black" style="font-family: 'Bebas Neue', sans-serif;">NASIL OYNANIR?</h2>
+                <button class="close-btn w-10 h-10 bg-black border-3 border-black hover:bg-yellow-300 transition-all flex items-center justify-center font-bold text-white hover:text-black">
+                    X
                 </button>
             </div>
-            <div id="modal-body" class="p-6 text-gray-300 space-y-6">
+            <div id="modal-body" class="p-6 text-black space-y-6 text-sm">
                 <!-- Content will be inserted by JS -->
             </div>
         </div>
