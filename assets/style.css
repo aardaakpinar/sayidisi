@@ -8,7 +8,7 @@ body {
     font-family: "Inter", system-ui, sans-serif;
     background-color: #0a0a0a;
     color: #fafafa;
-    min-height: 100vh;
+    height: 100dvh;
     overflow-x: hidden;
 }
 
@@ -38,32 +38,6 @@ body {
     border-color: #ef4444 !important;
     animation: shake 0.3s ease;
     box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-}
-
-/* Button animations */
-.num-btn {
-    transition: all 0.15s ease;
-}
-
-.num-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-}
-
-.num-btn:active {
-    transform: translateY(0);
-}
-
-.num-btn.is-correct {
-    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
-    border-color: #22c55e !important;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
-}
-
-.num-btn.is-absent {
-    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
-    border-color: #ef4444 !important;
-    animation: shake 0.3s ease;
 }
 
 /* Modal styles */
