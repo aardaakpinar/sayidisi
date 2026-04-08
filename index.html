@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-background min-h-screen flex flex-col">
+<body class="bg-background flex flex-col" onclick="document.getElementById('hidden-input').focus();">
     <!-- Header -->
     <header class="w-full border-b border-border bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
         <div class="max-w-lg mx-auto py-3 flex items-center justify-between px-6 sm:px-0">
@@ -54,7 +54,7 @@
                     <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider">En Yüksek</p>
                     <p id="highScore" class="text-xl sm:text-2xl font-bold font-mono text-primary">0</p>
                 </div>
-                <button id="info" class="w-10 h-10 rounded-xl border border-border bg-surface-light hover:bg-border transition-colors flex items-center justify-center group">
+                <button id="info" class="w-10 h-10 rounded-xl border border-border bg-surface-light hover:bg-border transition-colors flex items-center justify-center group" onclick="event.stopPropagation();">
                     <svg class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -64,7 +64,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 gap-8">
+    <main class="flex flex-col items-center justify-center px-4 py-8 gap-8">
 
         <!-- Number Display (Tiles) -->
         <div class="w-full max-w-lg">
@@ -90,29 +90,7 @@
                 <div id="progress" class="h-full bg-gradient-to-r from-primary to-primary-dark rounded-full" style="width: 0%"></div>
             </div>
         </div>
-
-        <!-- Number Buttons -->
-        <div class="w-full max-w-lg">
-            <div class="grid grid-cols-3 gap-3">
-                <button id="7" onclick="checkNumber(7)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">7</button>
-                <button id="8" onclick="checkNumber(8)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">8</button>
-                <button id="9" onclick="checkNumber(9)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">9</button>
-                <button id="4" onclick="checkNumber(4)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">4</button>
-                <button id="5" onclick="checkNumber(5)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">5</button>
-                <button id="6" onclick="checkNumber(6)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">6</button>
-                <button id="1" onclick="checkNumber(1)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">1</button>
-                <button id="2" onclick="checkNumber(2)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">2</button>
-                <button id="3" onclick="checkNumber(3)" class="num-btn h-16 bg-surface-light border border-border rounded-2xl text-2xl font-bold font-mono text-white hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">3</button>
-            </div>
-        </div>
     </main>
-
-    <!-- Footer --> 
-    <footer class="w-full border-t border-border bg-surface/50 py-4"> 
-        <div class="max-w-2xl mx-auto px-4 text-center"> 
-            <p class="text-xs text-gray-600">Numpad veya ekrandaki butonları kullanarak oyna</p> 
-        </div> 
-    </footer>
 
     <!-- Modal -->
     <div id="modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
@@ -126,10 +104,26 @@
                 </button>
             </div>
             <div id="modal-body" class="p-6 text-gray-300 space-y-6">
-                <!-- Content will be inserted by JS -->
+                <h2>Nasıl Oynanır?</h2>
+                <ul class="rules">
+                    <li>Oyunun ekranı ikiye ayrılır. <b>Üst tarafta</b> rastgele üretilmiş sayı görünür.</li>
+                    <li><b>Amacınız</b> bu sayıda <u>olmayan</u> rakamı bulmaktır.</li>
+                    <li>Bulduğunuz rakamı verilen süre içinde 
+                    <b>Klavye</b> veya <b>mobil cihazda sanal klavye</b> kullanarak işaretleyin.</li>
+                </ul>
+
+                <h2>Menüde ki sayılar ne?</h2>
+                <span>Orda oyun hakkında bilgiler yazmaktadır. Sırayla:</span>
+                <ul>
+                    <li>Mevcut puanın</li>
+                    <li>En yüksek puanın</li>
+                </ul>
             </div>
         </div>
     </div>
+
+    <!-- Hidden input for mobile keyboard -->
+    <input type="number" id="hidden-input" style="opacity: 0;" maxlength="1">
 
     <!-- Game Script -->
     <script src="assets/script.js"></script>
