@@ -40,10 +40,6 @@
 - **Framework**: PWA (Progressive Web App)
 - **Runtime**: Browser-based
 
-## 📱 Dilleri Destekler
-
-- 🇹🇷 Türkçe
-
 ## 🚀 Kurulum ve Çalıştırma
 
 ### Çevrimiçi Oynama
@@ -67,22 +63,6 @@ python -m http.server 8000
 # http://localhost:8000
 ```
 
-## 📂 Proje Yapısı
-
-```
-sayidisi/
-├── index.html              # Ana HTML dosyası
-├── manifest.json           # PWA manifest dosyası
-├── service-worker.js       # Service Worker (offline desteği)
-├── LICENSE                 # GPL v3 Lisansı
-├── README.md              # Bu dosya
-└── assets/
-    ├── script.js          # Ana oyun mantığı
-    ├── style.css          # Özel CSS stiller
-    ├── tailwind.config.js # Tailwind konfigürasyonu
-    └── icons/             # PWA ikonları
-```
-
 ## 🎮 Skor Sistemi
 
 | Aktivite | Puan |
@@ -95,24 +75,6 @@ sayidisi/
 
 Bu proje **GNU General Public License v3.0** altında lisanslanmıştır.  
 Detaylar için [LICENSE](LICENSE) dosyasına bakın.
-
-## 👨‍💻 Geliştirici
-
-- **Aardaa Kpınar** - [@aardaakpinar](https://github.com/aardaakpinar)
-
-## 🤝 Katkılar
-
-Katkılar hoşlanır! Hata bildirişi veya öneriler için lütfen [Issues](https://github.com/aardaakpinar/sayidisi/issues) açınız.
-
-## 📝 Değişiklik Geçmişi
-
-### v1.0 (Mevcut)
-- ✨ İlk sürüm yayınlandı
-- ✅ Temel oyun mekanikası
-- ✅ Zorluk seviyeleri
-- ✅ PWA desteği
-- ✅ Numpad desteği
-- ✅ Responsive tasarım
 
 ## 🙏 Teşekkürler
 
