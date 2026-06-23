@@ -1,11 +1,8 @@
-# 🎮 SayıDışı - Missing Digit Game
+# SayıDışı - Missing Digit Game
 
 **9 haneli bir sayıdan eksik olan rakamı bul!** | **Find the missing digit from a 9-digit number!**
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-green.svg)](https://aardaakpinar.github.io/sayidisi/)
-
-## 📋 Hakkında
+## Hakkında
 
 **SayıDışı**, hızı ve konsantrasyonu test eden eğlenceli bir web oyunudur. 9 haneli rastgele bir sayıda olmayan tek rakamı bulmalısın ve belirtilen süre içinde doğru cevabı vermek zorundasın.
 
@@ -19,7 +16,7 @@
 - ✅ **PWA Desteği**: Progressive Web App olarak yüklenebilir ve çevrimdışında çalışabilir
 - ✅ **Türkçe**: Tam türkçe arayüz ve oyun mekaniği
 
-## 🎯 Nasıl Oynanır?
+## Nasıl Oynanır?
 
 1. **Oyun Başlarsa** ekranda 9 haneli rastgele bir sayı görüntülenir
 2. **Amaç**: Bu sayıda **olmayan** rakamı bulup geri bildirim vermek
@@ -33,14 +30,14 @@
    - Ardı ardına doğru cevaplar = Bonus çarpanı artar
    - Zorluk seviyesi yükseldikçe = Daha fazla puan
 
-## 🛠️ Teknoloji Stack
+## Teknoloji Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **Styling**: Tailwind CSS
 - **Framework**: PWA (Progressive Web App)
 - **Runtime**: Browser-based
 
-## 🚀 Kurulum ve Çalıştırma
+## Kurulum ve Çalıştırma
 
 ### Çevrimiçi Oynama
 Doğrudan tarayıcıda oynanabilir:
@@ -63,7 +60,7 @@ python -m http.server 8000
 # http://localhost:8000
 ```
 
-## 🎮 Skor Sistemi
+## Skor Sistemi
 
 | Aktivite | Puan |
 |----------|------|
@@ -71,16 +68,9 @@ python -m http.server 8000
 | Ardı Ardına Doğru | Çarpan +1 |
 | Hata | Çarpan Sıfırlanır |
 
-## 🔒 Lisans
+## Lisans
 
 Bu proje **GNU General Public License v3.0** altında lisanslanmıştır.  
 Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
-## 🙏 Teşekkürler
-
-- Tailwind CSS ekibine muazzam CSS çerçevesi için
-- Tüm oyunculara geri bildirim ve destek için
-
----
-
-**Keyifli oyunlar! 🎮✨**
+**Keyifli oyunlar!**
