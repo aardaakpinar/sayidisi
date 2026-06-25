@@ -1,76 +1,77 @@
-# SayıDışı - Missing Digit Game
+# Missing Digit Game
 
-**9 haneli bir sayıdan eksik olan rakamı bul!** | **Find the missing digit from a 9-digit number!**
+**Find the missing digit from a 9-digit number!**
 
-## Hakkında
+## About
 
-**SayıDışı**, hızı ve konsantrasyonu test eden eğlenceli bir web oyunudur. 9 haneli rastgele bir sayıda olmayan tek rakamı bulmalısın ve belirtilen süre içinde doğru cevabı vermek zorundasın.
+**Missing Digit** is a fun web game that tests speed and concentration. You must find the only digit missing from a random 9-digit number and give the correct answer within the specified time.
 
-### Özellikler
+### Features
 
-- ✅ **Konsol Desteği**: Numpad ve fiziksel klavye ile oynanabilir
-- ✅ **Zorluk Seviyeleri**: Zorluk arttıkça puan çarpanı da artar
-- ✅ **İlerleme Göstergesi**: Geriye kalan süreyi görsel olarak takip et
-- ✅ **Skor Sistemi**: Başarılı cevapların ardı ardına verilmesi bonus puanı arttırır
-- ✅ **Responsive Design**: Masaüstü, tablet ve mobil cihazlarda mükemmel çalışır
-- ✅ **PWA Desteği**: Progressive Web App olarak yüklenebilir ve çevrimdışında çalışabilir
-- ✅ **Türkçe**: Tam türkçe arayüz ve oyun mekaniği
+- ✅ **Console Support**: Playable with numpad and physical keyboard
+- ✅ **Difficulty Levels**: Score multiplier increases with difficulty
+- ✅ **Progress Indicator**: Visually track remaining time
+- ✅ **Scoring System**: Consecutive successful answers increase bonus points
+- ✅ **Responsive Design**: Works perfectly on desktop, tablet and mobile devices
+- ✅ **PWA Support**: Can be installed as a Progressive Web App and works offline
 
-## Nasıl Oynanır?
+## How to Play?
 
-1. **Oyun Başlarsa** ekranda 9 haneli rastgele bir sayı görüntülenir
-2. **Amaç**: Bu sayıda **olmayan** rakamı bulup geri bildirim vermek
-3. **Giriş**: 
-   - Klavyeden (0-9 tuşları)
-   - Numpad'dan
-   - Mobil cihazda sanal tuş takımından
-4. **Zaman**: Her sorunun cevabı için belirli bir süreniz vardır
-5. **Skor**: 
-   - Doğru cevap = Puan kazanırsın
-   - Ardı ardına doğru cevaplar = Bonus çarpanı artar
-   - Zorluk seviyesi yükseldikçe = Daha fazla puan
+1. **When the game starts**, a 9-digit random number will be displayed on the screen.
+2. **Objective**: Find the digit that is **missing** in this number and provide feedback.
+3. **Input**:
+   - From the keyboard (0-9 keys)
+   - From the Numpad
+   - From the virtual keypad on a mobile device
 
-## Teknoloji Stack
+4. **Time**: You have a certain amount of time to answer each question.
+5. **Score**:
+   - Correct answer = You earn points.
+   - Consecutive correct answers = Bonus multiplier increases.
+   - As the difficulty level increases = More points.
+
+## Technology Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
 - **Styling**: Tailwind CSS
 - **Framework**: PWA (Progressive Web App)
 - **Runtime**: Browser-based
 
-## Kurulum ve Çalıştırma
+## Installation and Operation
 
-### Çevrimiçi Oynama
-Doğrudan tarayıcıda oynanabilir:
+### Online Play
+Directly in the browser Playable:
 ```
 https://aardaakpinar.github.io/sayidisi/
 ```
 
-### Yerel Makinede Çalıştırma
+### Running on Local Machine
 ```bash
-# Repoyu klonla
+# Clone the repository
 git clone https://github.com/aardaakpinar/sayidisi.git
 
-# Dizine geç
+# Change directory
 cd sayidisi
 
-# Basit bir web sunucusu başlat (Python)
+# Start a simple web server (Python)
 python -m http.server 8000
 
-# Tarayıcıda aç
+# Open in browser
 # http://localhost:8000
 ```
 
-## Skor Sistemi
+## Score System
 
-| Aktivite | Puan |
+| Activity | Points |
 |----------|------|
-| Doğru Cevap | 10 × Zorluk × Çarpan |
-| Ardı Ardına Doğru | Çarpan +1 |
-| Hata | Çarpan Sıfırlanır |
+| Correct Answer | 10 × Difficulty × Multiplier |
+| Consecutive Correct Answers | Multiplier +1 |
+| Error | Multiplier Reset |
 
-## Lisans
+## License
 
-Bu proje **GNU General Public License v3.0** altında lisanslanmıştır.  
-Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+This project is licensed under the **GNU General Public License v3.0**.
 
-**Keyifli oyunlar!**
+See [LICENSE](LICENSE) file for details.
+
+**Have fun playing!**
